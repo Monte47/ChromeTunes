@@ -1,10 +1,10 @@
-## Chiptunes
+## ChromeTunes
 
 ### Background
 
-Chiptunes is an interactive javascript app that lets you create sounds via your keyboard and mouse and generates color visualizations as you play.
+ChromeTunes is an interactive javascript app that lets you create sounds via your keyboard and mouse and generates color visualizations as you play. ChromeTunes is inspired by the concept of Synesthesia, specifically Chromesthesia.
 
-Chiptunes is inspired by
+Synesthesia is a neurological phenomenon in which stimulation of one pathway associated with a sensory experience involuntarily triggers another sensory pathway. Chromesthesia is a specific type of Synesthesia in which hearing different sounds evokes experiences of color.
 
 ### Functionality & MVP
 
@@ -16,14 +16,16 @@ Chiptues will allow users to be able to:
 - [ ] Provide visual feedback on the keys when they are used.
 - [ ] Choose from at least a few different sets of sounds via a toggle menu.
 
-Additionally, Chiptunes will include:
+Additionally, ChromeTunes will include:
 
 - [ ] A clickable modal to describe the inspiration and backgound of chiptunes and synesthesia
 - [ ] A production README
 
 ### Wireframes
 
-Chiptunes will consist of a single screen with a keyboard, small nav above, and a default black background. The menu will contain a title, a toggle menu for different sets of sounds, a link to the github repo for the app.
+ChromeTunes will consist of a single screen with a keyboard, small nav above, and a default black background. The menu will contain a title, a toggle menu for different sets of sounds, a link to the github repo for the app.
+
+![wireframe](images/wireframe.png)
 
 ### Architecture and Technologies
 
