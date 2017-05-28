@@ -25,7 +25,7 @@ Additionally, ChromeTunes will include:
 
 ChromeTunes will consist of a single screen with a keyboard, small nav above, and a default black background. The menu will contain a title, a toggle menu for different sets of sounds, a link to the github repo for the app.
 
-![wireframe](images/wireframe.png)
+![](./images/wireframe.png)
 
 ### Architecture and Technologies
 
@@ -35,7 +35,7 @@ This project will be completed using the following Technologies:
 - HTML with Canvas and CSS for DOM manipulation, rendering, and styling
 - Webpack to bundle together various scripts necessary for the app to run
 
-In addition to the webpack entry file, there will be two scripts associated with this app:
+In addition to the webpack entry file, there will be three scripts associated with this app:
 
 `keyboard.js`: this script will contain all the logic for creating the keyboard and its elements, which will be rendered to the dom.
 
