@@ -25,7 +25,7 @@ Additionally, ChromeTunes will include:
 
 ChromeTunes will consist of a single screen with a keyboard, small nav above, and a default black background. The menu will contain a title, a toggle menu for different sets of sounds, a link to the github repo for the app.
 
-![](./images/wireframe.png)
+![](./images/Wireframe.png)
 
 ### Architecture and Technologies
 
