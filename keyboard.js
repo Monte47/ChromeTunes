@@ -12,7 +12,11 @@ class Keyboard {
 
   draw() {
     c.fillStyle = 'red';
-    c.fillRect(100, 100, 100, 100);
+    let boardWidthStart = (window.innerWidth / 5);
+    let boardHeightStart = (window.innerHeight / 2.2);
+    let boardWidth = (window.innerWidth / 1.8);
+    let boardHeight =  (window.innerHeight / 4.5);
+    c.fillRect(boardWidthStart, boardHeightStart, boardWidth, boardHeight);
   }
 
   sound(){

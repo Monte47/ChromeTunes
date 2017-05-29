@@ -7,7 +7,6 @@ canvas.height = window.innerHeight;
 
 var c = canvas.getContext('2d');
 
-let keyBoard = new Keyboard();
 
 
 window.addEventListener('mousemove', (e) => {
@@ -35,21 +34,36 @@ function keyHandler(e){
   let key = e.key;
   var context = new AudioContext();
   var o = context.createOscillator();
-  o.type = "square";
+  o.type = "triangle";
   var  g = context.createGain();
   var frequency;
   switch (key) {
-    case "a":
-      frequency = 329.6;
+    case "z":
+      frequency = 146.8; // d minor 3
       break;
-    case "s":
-      frequency = 370.0;
+    case "x":
+      frequency = 164.8;
       break;
-    case "d":
-      frequency = 415.3;
+    case "c":
+      frequency = 174.6;
+      break;
+    case "v":
+      frequency = 196.0;
+      break;
+    case "b":
+      frequency = 220.0;
+      break;
+    case "n":
+      frequency = 233.1;
+      break;
+    case "m":
+      frequency = 261.6;
+      break;
+    case ",":
+      frequency = 293.7;
       break;
     case "q":
-      frequency = 196.0;
+      frequency = 196.0; // blues g 3
       break;
     case "w":
       frequency = 233.1;
@@ -68,6 +82,9 @@ function keyHandler(e){
       break;
     case "u":
       frequency = 392.0;
+      break;
+    default:
+      frequency = 0;
       break;
   }
   o.frequency.value = frequency;
@@ -162,7 +179,6 @@ function animate() {
 
   for (var j = 0; j < circleArray.length; j++) {
     circleArray[j].update();
-    keyBoard.draw();
   }
 
 

@@ -8,10 +8,10 @@ Synesthesia is a neurological phenomenon in which stimulation of one pathway ass
 
 ### Functionality & MVP
 
-Chiptues will allow users to be able to:
+Chrometunes will allow users to be able to:
 
-- [ ] View and interact with a virtual keyboard to create sounds and color visualizations
-- [ ] Select keys from either the keyboard or hovering/clicking over the key with the mouse
+- [ ] Interact with a virtual keyboard to create sounds and color visualizations
+- [ ] Select keys to play by pressing buttons on their keyboard.
 - [ ] Paint a portion of the background with a different color depending on which key is pressed.
 - [ ] Provide visual feedback on the keys when they are used.
 - [ ] Choose from at least a few different sets of sounds via a toggle menu.
@@ -45,20 +45,20 @@ In addition to the webpack entry file, there will be three scripts associated wi
 
 ### Implementation Timeline
 
-**Day 1**: Setup all necessary Node modules and configure webpack. Create `webpack.config.js` and `package.json` files. Write a basic entry file. Find music samples to put in my project for each note on the keyboard. Pick out colors for each note. Goals for the day include:
+**Day 1**: Setup all necessary Node modules and configure webpack. Create `webpack.config.js` and `package.json` files. Write a basic entry file. Understand sound creation on Javascript. Pick out colors for each note. Goals for the day include:
 
 - Complete webpack bundle
-- Find and download note samples
 - Find colors for each corresponding note
+- Research creating sound waves in Javascript
+- Determine which scales/notes to map to keyboard
 
 **Day 2**: This day will be dedicated to learning canvas and rendering a keyboard/keys from the entry file. Additionally the sound functionality will be created so that keys will generate an appropriate sound. Goals for the day include:
 
 - Generate a canvas
-- Render Keyboard and keys
 - Complete `sound.js` logic functionality
 - Map each key to its appropriate sound and key-value on the computer keyboard
 
-**Day 3**: This day will be dedicated to implementing the colors feature of the app in which a brush of color will be animated across the background and disappear momentarily. This will be done using canvas. Goals for the day include:
+**Day 3**: This day will be dedicated to implementing the colors feature of the app in which a brush of color will be animated across the background and disappear momentarily. This will be done using vanilla canvas. Goals for the day include:
 
 - Complete `color.js` logic functionality
 - Map each key to its appropriate color
