@@ -152,7 +152,7 @@ window.addEventListener('click', function (e) {
   g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
   setTimeout(function () {
     return context.close();
-  }, 1000);
+  }, 500);
 });
 
 window.addEventListener("keypress", keyHandler, false);
@@ -161,6 +161,7 @@ function keyHandler(e) {
   var key = e.key;
   var context = new AudioContext();
   var o = context.createOscillator();
+  o.type = "square";
   var g = context.createGain();
   var frequency;
   switch (key) {
@@ -172,6 +173,28 @@ function keyHandler(e) {
       break;
     case "d":
       frequency = 415.3;
+      break;
+    case "q":
+      frequency = 196.0;
+      break;
+    case "w":
+      frequency = 233.1;
+      break;
+    case "e":
+      frequency = 261.6;
+      break;
+    case "r":
+      frequency = 277.2;
+      break;
+    case "t":
+      frequency = 293.7;
+      break;
+    case "y":
+      frequency = 349.2;
+      break;
+    case "u":
+      frequency = 392.0;
+      break;
   }
   o.frequency.value = frequency;
   o.connect(g);
@@ -180,7 +203,7 @@ function keyHandler(e) {
   g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
   setTimeout(function () {
     return context.close();
-  }, 1000);
+  }, 500);
 }
 
 var mouse = {
