@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-  entry: './keyboard.js',
+  entry: './chrome_tunes.js',
   output: {
     filename: './bundle.js',
   },
