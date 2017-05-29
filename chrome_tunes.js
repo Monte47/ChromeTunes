@@ -1,42 +1,61 @@
+import Keyboard from './keyboard.js';
+
 let canvas = document.querySelector('canvas');
-console.log(canvas);
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var c = canvas.getContext('2d');
 
-
-// c.fillStyle = 'rgba(255, 0, 0 , 0.5)';
-// c.fillRect(100, 100, 100, 100);
-// c.fillStyle = 'rgba(0, 0, 255, 0.5)';
-// c.fillRect(400, 100, 100, 100);
-// c.fillStyle = 'rgba(0, 255, 0, 0.5)';
-// c.fillRect(300, 300, 100, 100);
-
-// Line
-// c.beginPath();
-// c.moveTo(50, 300);
-// c.lineTo(300, 100);
-// c.lineTo(400, 300);
-// c.strokeStyle = "#fa34a3";
-// c.stroke();
+let keyBoard = new Keyboard();
 
 
-// Arc
-// c.beginPath();
-// c.arc(300, 300, 30, 0, Math.PI * 2, false);
-// c.strokeStyle = 'blue';
-// c.stroke();
+window.addEventListener('mousemove', (e) => {
+  mouse.x = e.x;
+  mouse.y = e.y;
+});
 
-// for (var i = 0; i < 500; i++) {
-//   let x = Math.random() * window.innerWidth / 2;
-//   let y = Math.random() * window.innerHeight;
-//   c.beginPath();
-//   c.arc(x, y, 30, 0, Math.PI * 2, false);
-//   c.strokeStyle = 'blue';
-//   c.stroke();
-// }
+window.addEventListener('click', (e) => {
+  var context = new AudioContext();
+  var o = context.createOscillator();
+  var  g = context.createGain();
+  var frequency = 261.6;
+  o.frequency.value = frequency;
+  o.connect(g);
+  g.connect(context.destination);
+  o.start(0);
+  g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
+  setTimeout(() => context.close(), 1000);
+});
+
+window.addEventListener("keypress", keyHandler, false);
+
+
+function keyHandler(e){
+  let key = e.key;
+  var context = new AudioContext();
+  var o = context.createOscillator();
+  var  g = context.createGain();
+  var frequency;
+  switch (key) {
+    case "a":
+      frequency = 329.6;
+      break;
+    case "s":
+      frequency = 370.0;
+      break;
+    case "d":
+      frequency = 415.3;
+  }
+  o.frequency.value = frequency;
+  o.connect(g);
+  g.connect(context.destination);
+  o.start(0);
+  g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
+  setTimeout(() => context.close(), 1000);
+}
+
+
 
 let mouse = {
   x: undefined,
@@ -44,12 +63,6 @@ let mouse = {
 };
 
 let maxRadius = 50;
-// let minRadius = 3;
-
-window.addEventListener('mousemove', (e) => {
-  mouse.x = e.x;
-  mouse.y = e.y;
-});
 
 window.addEventListener('resize', () => {
   canvas.width = window.innerWidth;
@@ -126,10 +139,11 @@ function animate() {
 
   for (var j = 0; j < circleArray.length; j++) {
     circleArray[j].update();
+    keyBoard.draw();
   }
 
 
 }
 
-animate();
 init();
+animate();

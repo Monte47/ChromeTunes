@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,44 +73,115 @@
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var canvas = document.querySelector('canvas');
-console.log(canvas);
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var c = canvas.getContext('2d');
 
-// c.fillStyle = 'rgba(255, 0, 0 , 0.5)';
-// c.fillRect(100, 100, 100, 100);
-// c.fillStyle = 'rgba(0, 0, 255, 0.5)';
-// c.fillRect(400, 100, 100, 100);
-// c.fillStyle = 'rgba(0, 255, 0, 0.5)';
-// c.fillRect(300, 300, 100, 100);
+var Keyboard = function () {
+  function Keyboard() {
+    _classCallCheck(this, Keyboard);
+  }
 
-// Line
-// c.beginPath();
-// c.moveTo(50, 300);
-// c.lineTo(300, 100);
-// c.lineTo(400, 300);
-// c.strokeStyle = "#fa34a3";
-// c.stroke();
+  _createClass(Keyboard, [{
+    key: 'draw',
+    value: function draw() {
+      c.fillStyle = 'red';
+      c.fillRect(100, 100, 100, 100);
+    }
+  }, {
+    key: 'sound',
+    value: function sound() {
+      var audio = document.createElement("audio");
+      audio.src = "./sounds/piano.wav";
+      audio.play();
+    }
+  }]);
+
+  return Keyboard;
+}();
+
+exports.default = Keyboard;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
-// Arc
-// c.beginPath();
-// c.arc(300, 300, 30, 0, Math.PI * 2, false);
-// c.strokeStyle = 'blue';
-// c.stroke();
+var _keyboard = __webpack_require__(0);
 
-// for (var i = 0; i < 500; i++) {
-//   let x = Math.random() * window.innerWidth / 2;
-//   let y = Math.random() * window.innerHeight;
-//   c.beginPath();
-//   c.arc(x, y, 30, 0, Math.PI * 2, false);
-//   c.strokeStyle = 'blue';
-//   c.stroke();
-// }
+var _keyboard2 = _interopRequireDefault(_keyboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var canvas = document.querySelector('canvas');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+var c = canvas.getContext('2d');
+
+var keyBoard = new _keyboard2.default();
+
+window.addEventListener('mousemove', function (e) {
+  mouse.x = e.x;
+  mouse.y = e.y;
+});
+
+window.addEventListener('click', function (e) {
+  var context = new AudioContext();
+  var o = context.createOscillator();
+  var g = context.createGain();
+  var frequency = 261.6;
+  o.frequency.value = frequency;
+  o.connect(g);
+  g.connect(context.destination);
+  o.start(0);
+  g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
+  setTimeout(function () {
+    return context.close();
+  }, 1000);
+});
+
+window.addEventListener("keypress", keyHandler, false);
+
+function keyHandler(e) {
+  var key = e.key;
+  var context = new AudioContext();
+  var o = context.createOscillator();
+  var g = context.createGain();
+  var frequency;
+  switch (key) {
+    case "a":
+      frequency = 329.6;
+      break;
+    case "s":
+      frequency = 370.0;
+      break;
+    case "d":
+      frequency = 415.3;
+  }
+  o.frequency.value = frequency;
+  o.connect(g);
+  g.connect(context.destination);
+  o.start(0);
+  g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
+  setTimeout(function () {
+    return context.close();
+  }, 1000);
+}
 
 var mouse = {
   x: undefined,
@@ -118,12 +189,6 @@ var mouse = {
 };
 
 var maxRadius = 50;
-// let minRadius = 3;
-
-window.addEventListener('mousemove', function (e) {
-  mouse.x = e.x;
-  mouse.y = e.y;
-});
 
 window.addEventListener('resize', function () {
   canvas.width = window.innerWidth;
@@ -192,11 +257,12 @@ function animate() {
 
   for (var j = 0; j < circleArray.length; j++) {
     circleArray[j].update();
+    keyBoard.draw();
   }
 }
 
-animate();
 init();
+animate();
 
 /***/ })
 /******/ ]);
