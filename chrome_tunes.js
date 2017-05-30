@@ -1,3 +1,11 @@
+let canvas = document.querySelector('canvas');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let c = canvas.getContext('2d');
+
+
 import Keyboard from './keyboard.js';
 import colors from './color.js';
 
@@ -16,17 +24,11 @@ let dMinorScale = [73.42, 82.41, 87.31, 98.00, 110.0, 116.5, 130.8,
 let scalesArray = [dMinorScale, gBluesScale];
 let scalesI = 1;
 
-let soundTypeArray = ["sine", "square", "triangle", "sawtooth"];
+let soundTypeArray = ["sine", "triangle", "square", "sawtooth"];
 let soundTypeI = 1;
 
 let keyBoard = new Keyboard(gBluesScale, colors, "sine");
 
-let canvas = document.querySelector('canvas');
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let c = canvas.getContext('2d');
 
 
 
