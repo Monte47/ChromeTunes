@@ -274,6 +274,8 @@ var _color = __webpack_require__(2);
 
 var _color2 = _interopRequireDefault(_color);
 
+var _sound = __webpack_require__(3);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var canvas = document.querySelector('canvas');
@@ -283,17 +285,13 @@ canvas.height = window.innerHeight;
 
 var c = canvas.getContext('2d');
 
-var gBluesScale = [49.00, 58.27, 65.41, 69.30, 73.42, 87.31, 98.00, 116.5, 130.8, 138.6, 146.8, 174.6, 196.0, 233.1, 261.6, 277.2, 293.7, 349.2, 392.0, 466.2, 523.3, 554.4, 587.3, 698.5, 784.0, 932.3, 1047, 1109, 1175, 1397, 1568];
-
-var dMinorScale = [73.42, 82.41, 87.31, 98.00, 110.0, 116.5, 130.8, 146.8, 164.8, 174.6, 196.0, 220.0, 233.1, 261.6, 293.7, 329.6, 349.2, 392.0, 440.0, 466.2, 523.3, 587.3, 659.3, 698.5, 784.0, 880.0, 932.3, 1047, 1175, 1319, 1397];
-
-var scalesArray = [dMinorScale, gBluesScale];
+var scalesArray = [_sound.dMinorScale, _sound.gBluesScale];
 var scalesI = 1;
 
 var soundTypeArray = ["sine", "triangle", "square", "sawtooth"];
 var soundTypeI = 1;
 
-var keyBoard = new _keyboard2.default(gBluesScale, _color2.default, "sine");
+var keyBoard = new _keyboard2.default(_sound.gBluesScale, _color2.default, "sine");
 
 window.addEventListener('mousemove', function (e) {
   mouse.x = e.x;
@@ -315,14 +313,14 @@ function keyHandler(e) {
   } else {
     keyBoard.sound(key);
   }
-  var radius = Math.random() * 3 + 20;
+  var radius = Math.random() * 3 + 40;
   var x = Math.random() * (window.innerWidth - radius * 2) + radius;
   var y = Math.random() * (window.innerHeight - radius * 2) + radius;
-  var dx = (Math.random() - 0.5) * 5;
-  var dy = (Math.random() - 0.5) * 5;
+  var dx = (Math.random() - 0.5) * 20;
+  var dy = (Math.random() - 0.5) * 20;
   circleArray.push(new Circle(x, y, dx, dy, radius, keyBoard.currentColor));
   setTimeout(function () {
-    return circleArray.pop();
+    return circleArray.splice(1500, 1);
   }, 5000);
 }
 
@@ -420,6 +418,20 @@ Object.defineProperty(exports, "__esModule", {
 var colors = ['#42F2F7', '#E5446D', '#FB4D3D', '#7D7ABC', '#37FF8B', '#8D9EC6', '#EAC435', '#E40066', '#345995', '#C4D6B0', '#090C9B', '#B49FCC', '#152614', '#FDE74C', '#9BC53D', '#F06449', '#31E981', '#35605A', '#F2F79E', '#03CEA4', '#A390E4', '#99C5B5', '#706C61', '#E4D9FF', '#1E2749', '#A23E48', '#FFF275', '#C6CA53', '#7B7263', '#D30C7B', '#F2F3AE'];
 
 exports.default = colors;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var gBluesScale = exports.gBluesScale = [49.00, 58.27, 65.41, 69.30, 73.42, 87.31, 98.00, 116.5, 130.8, 138.6, 146.8, 174.6, 196.0, 233.1, 261.6, 277.2, 293.7, 349.2, 392.0, 466.2, 523.3, 554.4, 587.3, 698.5, 784.0, 932.3, 1047, 1109, 1175, 1397, 1568];
+
+var dMinorScale = exports.dMinorScale = [73.42, 82.41, 87.31, 98.00, 110.0, 116.5, 130.8, 146.8, 164.8, 174.6, 196.0, 220.0, 233.1, 261.6, 293.7, 329.6, 349.2, 392.0, 440.0, 466.2, 523.3, 587.3, 659.3, 698.5, 784.0, 880.0, 932.3, 1047, 1175, 1319, 1397];
 
 /***/ })
 /******/ ]);
