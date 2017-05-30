@@ -159,8 +159,10 @@ class Keyboard {
   }
 
   draw() {
+    c.font = "80px Comic Sans MS";
     c.fillStyle = this.currentColor;
-    c.fillRect(100, 100, 100, 100);
+    c.textAlign = "center";
+    c.fillText("Press a Key to Make a Sound", canvas.width/2, canvas.height/2);
   }
 
 
