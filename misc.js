@@ -141,3 +141,34 @@
 //
 // init();
 // animate();
+let c;
+
+class Color {
+  constructor(xstart, ystart, xend, yend) {
+    this.xstart = xstart;
+    this.ystart = ystart;
+    this.xend = xend;
+    this.yend = yend;
+    this.dx = 1;
+    this.dy = 1;
+  }
+
+  draw(){
+    c.beginPath();
+    c.moveTo(this.xstart, this.ystart);
+    c.lineTo(this.xend, this.yend);
+    c.stroke;
+  }
+
+  update(){
+    if(this.xend > innerWidth || this.xend < 0) {
+      this.dx = -this.dx;
+    }
+    if(this.yend > innerHeight || this.yend < 0) {
+      this.dy = -this.dy;
+    }
+    this.xend += this.dx;
+    this.yend += this.dy;
+    this.draw();
+  }
+}
