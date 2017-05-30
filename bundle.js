@@ -249,9 +249,12 @@ var Keyboard = function () {
   }, {
     key: 'draw',
     value: function draw() {
+      c.strokeStyle = 'black';
+      c.lineWidth = 3;
       c.font = "80px Comic Sans MS";
       c.fillStyle = this.currentColor;
       c.textAlign = "center";
+      c.strokeText("Press a Key to Make a Sound", canvas.width / 2, canvas.height / 2);
       c.fillText("Press a Key to Make a Sound", canvas.width / 2, canvas.height / 2);
     }
   }]);
@@ -280,140 +283,7 @@ var _sound = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var canvas = document.querySelector('canvas');
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-var c = canvas.getContext('2d');
-
-var scalesArray = [_sound.aMinorScale, _sound.gBluesScale];
-var scalesI = 1;
-
-var soundTypeArray = ["sine", "triangle", "square", "sawtooth"];
-var soundTypeI = 1;
-
-var keyBoard = new _keyboard2.default(_sound.gBluesScale, _color2.default, "sine");
-
-window.addEventListener('mousemove', function (e) {
-  mouse.x = e.x;
-  mouse.y = e.y;
-});
-
-window.addEventListener("keypress", keyHandler, false);
-
-function keyHandler(e) {
-  var key = e.key;
-  console.log(key);
-  if (key === " ") {
-    scalesI++;
-    keyBoard = new _keyboard2.default(scalesArray[scalesI % scalesArray.length], _color2.default, soundTypeArray[soundTypeI % soundTypeArray.length]);
-    console.log("hi");
-  } else if (key === "Enter") {
-    soundTypeI++;
-    keyBoard = new _keyboard2.default(scalesArray[scalesI % scalesArray.length], _color2.default, soundTypeArray[soundTypeI % soundTypeArray.length]);
-  } else {
-    keyBoard.sound(key);
-  }
-  var radius = Math.random() * 3 + 60;
-  var x = Math.random() * (window.innerWidth - radius * 2) + radius;
-  var y = Math.random() * (window.innerHeight - radius * 2) + radius;
-  var dx = (Math.random() - 0.5) * 20;
-  var dy = (Math.random() - 0.5) * 20;
-  circleArray.push(new Circle(x, y, dx, dy, radius, keyBoard.currentColor));
-  setTimeout(function () {
-    return circleArray.splice(1500, 1);
-  }, 5000);
-}
-
-var mouse = {
-  x: undefined,
-  y: undefined
-};
-
-var maxRadius = 50;
-
-window.addEventListener('resize', function () {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  init();
-});
-
-var colorArray = _color2.default;
-
-function Circle(x, y, dx, dy, radius, color) {
-  this.x = x;
-  this.y = y;
-  this.dx = dx;
-  this.dy = dy;
-  this.radius = radius;
-  this.minRadius = radius;
-  this.color = color || colorArray[Math.floor(Math.random() * colorArray.length)];
-
-  this.draw = function () {
-    c.beginPath();
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    c.strokeStyle = 'blue';
-    c.fillStyle = this.color;
-    c.fill();
-  };
-
-  this.update = function () {
-    if (this.x + this.radius > innerWidth || this.x - this.radius < 0) {
-      this.dx = -this.dx;
-    }
-    if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
-      this.dy = -this.dy;
-    }
-    this.x += this.dx;
-    this.y += this.dy;
-    this.draw();
-
-    if (mouse.x - this.x < 50 && mouse.x - this.x > -50 && mouse.y - this.y < 50 && mouse.y - this.y > -50) {
-      if (this.radius < maxRadius) {
-        this.radius += 1;
-      }
-    } else if (this.radius > this.minRadius) {
-      this.radius -= 1;
-    }
-  };
-}
-
-var circleArray = [];
-
-var init = function init() {
-  circleArray = [];
-  for (var i = 0; i < 1500; i++) {
-    var radius = Math.random() * 3 + 1;
-    var x = Math.random() * (window.innerWidth - radius * 2) + radius;
-    var y = Math.random() * (window.innerHeight - radius * 2) + radius;
-    var dx = (Math.random() - 0.5) * 5;
-    var dy = (Math.random() - 0.5) * 5;
-    circleArray.push(new Circle(x, y, dx, dy, radius));
-  }
-};
-
-function animate() {
-  requestAnimationFrame(animate);
-  c.clearRect(0, 0, innerWidth, innerHeight);
-  keyBoard.draw();
-
-  for (var j = 0; j < circleArray.length; j++) {
-    circleArray[j].update();
-  }
-}
-
-init();
-animate();
-
-////////////////////////////////////////
-////////////////////////////////////////
-////////////////////////////////////////
-////////////////////////////////////////
-
-
-// import Keyboard from './keyboard.js';
+var canvas = document.querySelector('canvas'); // import Keyboard from './keyboard.js';
 // import colors from './color.js';
 // import { gBluesScale, aMinorScale } from './sound.js';
 //
@@ -440,10 +310,6 @@ animate();
 //   mouse.y = e.y;
 // });
 //
-// window.addEventListener('click', () => {
-//   c.clearRect(0, 0, innerWidth, innerHeight);
-// });
-//
 // window.addEventListener("keypress", keyHandler, false);
 //
 //
@@ -463,12 +329,10 @@ animate();
 //   let radius = Math.random() * 3 + 60;
 //   let x = Math.random() * (window.innerWidth - radius * 2) + radius;
 //   let y = Math.random() * (window.innerHeight - radius * 2) + radius;
-//   // let dx = (Math.random() - 0.5) * 20;
-//   let dx = 50;
-//   // let dy = (Math.random() - 0.5) * 20;
-//   let dy = 50;
+//   let dx = (Math.random() - 0.5) * 20;
+//   let dy = (Math.random() - 0.5) * 20;
 //   circleArray.push(new Circle(x, y, dx, dy, radius, keyBoard.currentColor));
-//   setTimeout(() => circleArray.splice(0, 1), 500);
+//   setTimeout(() => circleArray.splice(1500, 1), 5000);
 // }
 //
 //
@@ -539,24 +403,162 @@ animate();
 //     let y = Math.random() * (window.innerHeight - radius * 2) + radius;
 //     let dx = (Math.random() - 0.5) * 5;
 //     let dy = (Math.random() - 0.5) * 5;
-//     // circleArray.push(new Circle(x, y, dx, dy, radius));
+//     circleArray.push(new Circle(x, y, dx, dy, radius));
 //   }
 // };
 //
 // function animate() {
 //   requestAnimationFrame(animate);
-//   // c.clearRect(0, 0, innerWidth, innerHeight);
-//   keyBoard.draw();
+//   c.clearRect(0, 0, innerWidth, innerHeight);
 //
 //   for (var j = 0; j < circleArray.length; j++) {
 //     circleArray[j].update();
 //   }
+//   keyBoard.draw();
 //
 //
 // }
 //
 // init();
 // animate();
+
+
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+var c = canvas.getContext('2d');
+
+var scalesArray = [_sound.aMinorScale, _sound.gBluesScale];
+var scalesI = 1;
+
+var soundTypeArray = ["sine", "triangle", "square", "sawtooth"];
+var soundTypeI = 1;
+
+var keyBoard = new _keyboard2.default(_sound.gBluesScale, _color2.default, "sine");
+
+window.addEventListener('mousemove', function (e) {
+  mouse.x = e.x;
+  mouse.y = e.y;
+});
+
+window.addEventListener('click', function () {
+  c.clearRect(0, 0, innerWidth, innerHeight);
+});
+
+window.addEventListener("keypress", keyHandler, false);
+
+function keyHandler(e) {
+  var key = e.key;
+  console.log(key);
+  if (key === " ") {
+    scalesI++;
+    keyBoard = new _keyboard2.default(scalesArray[scalesI % scalesArray.length], _color2.default, soundTypeArray[soundTypeI % soundTypeArray.length]);
+    console.log("hi");
+  } else if (key === "Enter") {
+    soundTypeI++;
+    keyBoard = new _keyboard2.default(scalesArray[scalesI % scalesArray.length], _color2.default, soundTypeArray[soundTypeI % soundTypeArray.length]);
+  } else {
+    keyBoard.sound(key);
+  }
+  var radius = Math.random() * 3 + 60;
+  var x = Math.random() * (window.innerWidth - radius * 2) + radius;
+  var y = Math.random() * (window.innerHeight - radius * 2) + radius;
+  // let dx = (Math.random() - 0.5) * 20;
+  var dx = 50;
+  // let dy = (Math.random() - 0.5) * 20;
+  var dy = 50;
+  circleArray.push(new Circle(x, y, dx, dy, radius, keyBoard.currentColor));
+  setTimeout(function () {
+    return circleArray.splice(0, 1);
+  }, 500);
+}
+
+var mouse = {
+  x: undefined,
+  y: undefined
+};
+
+var maxRadius = 50;
+
+window.addEventListener('resize', function () {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  init();
+});
+
+var colorArray = _color2.default;
+
+function Circle(x, y, dx, dy, radius, color) {
+  this.x = x;
+  this.y = y;
+  this.dx = dx;
+  this.dy = dy;
+  this.radius = radius;
+  this.minRadius = radius;
+  this.color = color || colorArray[Math.floor(Math.random() * colorArray.length)];
+
+  this.draw = function () {
+    c.beginPath();
+    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    c.strokeStyle = 'blue';
+    c.fillStyle = this.color;
+    c.fill();
+  };
+
+  this.update = function () {
+    if (this.x + this.radius > innerWidth || this.x - this.radius < 0) {
+      this.dx = -this.dx;
+    }
+    if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
+      this.dy = -this.dy;
+    }
+    this.x += this.dx;
+    this.y += this.dy;
+    this.draw();
+
+    if (mouse.x - this.x < 50 && mouse.x - this.x > -50 && mouse.y - this.y < 50 && mouse.y - this.y > -50) {
+      if (this.radius < maxRadius) {
+        this.radius += 1;
+      }
+    } else if (this.radius > this.minRadius) {
+      this.radius -= 1;
+    }
+  };
+}
+
+var circleArray = [];
+
+var init = function init() {
+  circleArray = [];
+  for (var i = 0; i < 1500; i++) {
+    var radius = Math.random() * 3 + 1;
+    var x = Math.random() * (window.innerWidth - radius * 2) + radius;
+    var y = Math.random() * (window.innerHeight - radius * 2) + radius;
+    var dx = (Math.random() - 0.5) * 5;
+    var dy = (Math.random() - 0.5) * 5;
+    // circleArray.push(new Circle(x, y, dx, dy, radius));
+  }
+};
+
+function animate() {
+  requestAnimationFrame(animate);
+  // c.clearRect(0, 0, innerWidth, innerHeight);
+  keyBoard.draw();
+
+  for (var j = 0; j < circleArray.length; j++) {
+    circleArray[j].update();
+  }
+}
+
+init();
+animate();
 
 /***/ }),
 /* 2 */
