@@ -1,11 +1,20 @@
 import Keyboard from './keyboard.js';
+import colors from './color.js';
+
+let bluesScaleG = [49.00, 58.27, 65.41, 69.30, 73.42, 87.31,
+  98.00, 116.5, 130.8, 138.6, 146.8, 174.6,
+  196.0, 233.1, 261.6, 277.2, 293.7, 349.2,
+  392.0, 466.2, 523.3, 554.4, 587.3, 698.5,
+  784.0, 932.3, 1047, 1109, 1175, 1397, 1568];
+
+let keyBoard = new Keyboard(bluesScaleG, colors);
 
 let canvas = document.querySelector('canvas');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-var c = canvas.getContext('2d');
+let c = canvas.getContext('2d');
 
 
 
@@ -15,84 +24,77 @@ window.addEventListener('mousemove', (e) => {
 });
 
 window.addEventListener('click', (e) => {
-  var context = new AudioContext();
-  var o = context.createOscillator();
-  var  g = context.createGain();
-  var frequency = 261.6;
-  o.frequency.value = frequency;
-  o.connect(g);
-  g.connect(context.destination);
-  o.start(0);
-  g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
-  setTimeout(() => context.close(), 500);
+  keyBoard.sound();
 });
+
 
 window.addEventListener("keypress", keyHandler, false);
 
 
 function keyHandler(e){
   let key = e.key;
-  var context = new AudioContext();
-  var o = context.createOscillator();
-  o.type = "triangle";
-  var  g = context.createGain();
-  var frequency;
-  switch (key) {
-    case "z":
-      frequency = 146.8; // d minor 3
-      break;
-    case "x":
-      frequency = 164.8;
-      break;
-    case "c":
-      frequency = 174.6;
-      break;
-    case "v":
-      frequency = 196.0;
-      break;
-    case "b":
-      frequency = 220.0;
-      break;
-    case "n":
-      frequency = 233.1;
-      break;
-    case "m":
-      frequency = 261.6;
-      break;
-    case ",":
-      frequency = 293.7;
-      break;
-    case "q":
-      frequency = 196.0; // blues g 3
-      break;
-    case "w":
-      frequency = 233.1;
-      break;
-    case "e":
-      frequency = 261.6;
-      break;
-    case "r":
-      frequency = 277.2;
-      break;
-    case "t":
-      frequency = 293.7;
-      break;
-    case "y":
-      frequency = 349.2;
-      break;
-    case "u":
-      frequency = 392.0;
-      break;
-    default:
-      frequency = 0;
-      break;
-  }
-  o.frequency.value = frequency;
-  o.connect(g);
-  g.connect(context.destination);
-  o.start(0);
-  g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
-  setTimeout(() => context.close(), 500);
+  keyBoard.sound(key);
+  // var context = new AudioContext();
+  // var o = context.createOscillator();
+  // o.type = "triangle";
+  // var  g = context.createGain();
+  // var frequency;
+  // switch (key) {
+  //   case "z":
+  //     frequency = 146.8; // d minor 3
+  //     break;
+  //   case "x":
+  //     frequency = 164.8;
+  //     break;
+  //   case "c":
+  //     frequency = 174.6;
+  //     break;
+  //   case "v":
+  //     frequency = 196.0;
+  //     break;
+  //   case "b":
+  //     frequency = 220.0;
+  //     break;
+  //   case "n":
+  //     frequency = 233.1;
+  //     break;
+  //   case "m":
+  //     frequency = 261.6;
+  //     break;
+  //   case ",":
+  //     frequency = 293.7;
+  //     break;
+  //   case "q":
+  //     frequency = 196.0; // blues g 3
+  //     break;
+  //   case "w":
+  //     frequency = 233.1;
+  //     break;
+  //   case "e":
+  //     frequency = 261.6;
+  //     break;
+  //   case "r":
+  //     frequency = 277.2;
+  //     break;
+  //   case "t":
+  //     frequency = 293.7;
+  //     break;
+  //   case "y":
+  //     frequency = 349.2;
+  //     break;
+  //   case "u":
+  //     frequency = 392.0;
+  //     break;
+  //   default:
+  //     frequency = 0;
+  //     break;
+  // }
+  // o.frequency.value = frequency;
+  // o.connect(g);
+  // g.connect(context.destination);
+  // o.start(0);
+  // g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
+  // setTimeout(() => context.close(), 500);
 }
 
 
@@ -176,6 +178,7 @@ const init = () => {
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, innerWidth, innerHeight);
+  keyBoard.draw();
 
   for (var j = 0; j < circleArray.length; j++) {
     circleArray[j].update();
