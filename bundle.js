@@ -335,11 +335,6 @@ var soundTypeI = 1;
 
 var keyBoard = new _keyboard2.default(_sound.gBluesScale, _color2.default, "sine");
 
-window.addEventListener('mousemove', function (e) {
-  mouse.x = e.x;
-  mouse.y = e.y;
-});
-
 window.addEventListener("keypress", keyHandler, false);
 
 function keyHandler(e) {
@@ -368,11 +363,6 @@ function keyHandler(e) {
     return circleArray.splice(1500, 1);
   }, 5000);
 }
-
-var mouse = {
-  x: undefined,
-  y: undefined
-};
 
 var maxRadius = 50;
 
@@ -439,6 +429,11 @@ canvas.height = window.innerHeight;
 var c = canvas.getContext('2d');
 
 var colorArray = _color2.default;
+
+window.addEventListener('mousemove', function (e) {
+  mouse.x = e.x;
+  mouse.y = e.y;
+});
 
 var mouse = {
   x: undefined,

@@ -10,6 +10,11 @@ let c = canvas.getContext('2d');
 
 var colorArray = colors;
 
+window.addEventListener('mousemove', (e) => {
+  mouse.x = e.x;
+  mouse.y = e.y;
+});
+
 let mouse = {
   x: undefined,
   y: undefined

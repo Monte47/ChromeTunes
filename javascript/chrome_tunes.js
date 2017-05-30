@@ -18,12 +18,6 @@ let soundTypeI = 1;
 let keyBoard = new Keyboard(gBluesScale, colors, "sine");
 
 
-
-window.addEventListener('mousemove', (e) => {
-  mouse.x = e.x;
-  mouse.y = e.y;
-});
-
 window.addEventListener("keypress", keyHandler, false);
 
 
@@ -52,12 +46,6 @@ function keyHandler(e){
   setTimeout(() => circleArray.splice(1500, 1), 5000);
 }
 
-
-
-let mouse = {
-  x: undefined,
-  y: undefined
-};
 
 let maxRadius = 50;
 
