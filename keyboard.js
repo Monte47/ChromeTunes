@@ -161,11 +161,16 @@ class Keyboard {
   draw() {
     c.strokeStyle = 'black';
     c.lineWidth = 3;
-    c.font = "80px Comic Sans MS";
+    c.font = "60px Slackey";
     c.fillStyle = this.currentColor;
     c.textAlign = "center";
     c.strokeText("Press a Key to Make a Sound", canvas.width/2, canvas.height/2);
     c.fillText("Press a Key to Make a Sound", canvas.width/2, canvas.height/2);
+    c.font = "30px Comic Sans MS";
+    c.strokeText("Press Enter to change sound type", canvas.width/2, canvas.height/1.2);
+    c.fillText("Press Enter to change sound type", canvas.width/2, canvas.height/1.2);
+    c.strokeText("Press Space to change sound key", canvas.width/2, canvas.height/1.1);
+    c.fillText("Press Space to change sound key", canvas.width/2, canvas.height/1.1);
   }
 
 
