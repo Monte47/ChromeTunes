@@ -89,12 +89,14 @@ canvas.height = window.innerHeight;
 var c = canvas.getContext('2d');
 
 var Keyboard = function () {
-  function Keyboard(scale, colors) {
+  function Keyboard(scale, colors, soundType) {
     _classCallCheck(this, Keyboard);
 
     this.scale = scale;
     this.colors = colors;
     this.currentColor = null;
+    this.colorArray = [];
+    this.soundType = soundType;
   }
 
   _createClass(Keyboard, [{
@@ -234,6 +236,7 @@ var Keyboard = function () {
           break;
       }
       o.frequency.value = frequency;
+      o.type = this.soundType;
       o.connect(g);
       g.connect(context.destination);
       o.start(0);
@@ -241,6 +244,7 @@ var Keyboard = function () {
       setTimeout(function () {
         return context.close();
       }, 500);
+      this.colorArray.push(this.currentColor);
     }
   }, {
     key: 'draw',
@@ -272,9 +276,17 @@ var _color2 = _interopRequireDefault(_color);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var bluesScaleG = [49.00, 58.27, 65.41, 69.30, 73.42, 87.31, 98.00, 116.5, 130.8, 138.6, 146.8, 174.6, 196.0, 233.1, 261.6, 277.2, 293.7, 349.2, 392.0, 466.2, 523.3, 554.4, 587.3, 698.5, 784.0, 932.3, 1047, 1109, 1175, 1397, 1568];
+var gBluesScale = [49.00, 58.27, 65.41, 69.30, 73.42, 87.31, 98.00, 116.5, 130.8, 138.6, 146.8, 174.6, 196.0, 233.1, 261.6, 277.2, 293.7, 349.2, 392.0, 466.2, 523.3, 554.4, 587.3, 698.5, 784.0, 932.3, 1047, 1109, 1175, 1397, 1568];
 
-var keyBoard = new _keyboard2.default(bluesScaleG, _color2.default);
+var dMinorScale = [73.42, 82.41, 87.31, 98.00, 110.0, 116.5, 130.8, 146.8, 164.8, 174.6, 196.0, 220.0, 233.1, 261.6, 293.7, 329.6, 349.2, 392.0, 440.0, 466.2, 523.3, 587.3, 659.3, 698.5, 784.0, 880.0, 932.3, 1047, 1175, 1319, 1397];
+
+var scalesArray = [dMinorScale, gBluesScale];
+var scalesI = 1;
+
+var soundTypeArray = ["sine", "square", "triangle", "sawtooth"];
+var soundTypeI = 1;
+
+var keyBoard = new _keyboard2.default(gBluesScale, _color2.default, "sine");
 
 var canvas = document.querySelector('canvas');
 
@@ -288,76 +300,30 @@ window.addEventListener('mousemove', function (e) {
   mouse.y = e.y;
 });
 
-window.addEventListener('click', function (e) {
-  keyBoard.sound();
-});
-
 window.addEventListener("keypress", keyHandler, false);
 
 function keyHandler(e) {
   var key = e.key;
-  keyBoard.sound(key);
-  // var context = new AudioContext();
-  // var o = context.createOscillator();
-  // o.type = "triangle";
-  // var  g = context.createGain();
-  // var frequency;
-  // switch (key) {
-  //   case "z":
-  //     frequency = 146.8; // d minor 3
-  //     break;
-  //   case "x":
-  //     frequency = 164.8;
-  //     break;
-  //   case "c":
-  //     frequency = 174.6;
-  //     break;
-  //   case "v":
-  //     frequency = 196.0;
-  //     break;
-  //   case "b":
-  //     frequency = 220.0;
-  //     break;
-  //   case "n":
-  //     frequency = 233.1;
-  //     break;
-  //   case "m":
-  //     frequency = 261.6;
-  //     break;
-  //   case ",":
-  //     frequency = 293.7;
-  //     break;
-  //   case "q":
-  //     frequency = 196.0; // blues g 3
-  //     break;
-  //   case "w":
-  //     frequency = 233.1;
-  //     break;
-  //   case "e":
-  //     frequency = 261.6;
-  //     break;
-  //   case "r":
-  //     frequency = 277.2;
-  //     break;
-  //   case "t":
-  //     frequency = 293.7;
-  //     break;
-  //   case "y":
-  //     frequency = 349.2;
-  //     break;
-  //   case "u":
-  //     frequency = 392.0;
-  //     break;
-  //   default:
-  //     frequency = 0;
-  //     break;
-  // }
-  // o.frequency.value = frequency;
-  // o.connect(g);
-  // g.connect(context.destination);
-  // o.start(0);
-  // g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
-  // setTimeout(() => context.close(), 500);
+  console.log(key);
+  if (key === " ") {
+    scalesI++;
+    keyBoard = new _keyboard2.default(scalesArray[scalesI % scalesArray.length], _color2.default, soundTypeArray[soundTypeI % soundTypeArray.length]);
+    console.log("hi");
+  } else if (key === "Enter") {
+    soundTypeI++;
+    keyBoard = new _keyboard2.default(scalesArray[scalesI % scalesArray.length], _color2.default, soundTypeArray[soundTypeI % soundTypeArray.length]);
+  } else {
+    keyBoard.sound(key);
+  }
+  var radius = Math.random() * 3 + 20;
+  var x = Math.random() * (window.innerWidth - radius * 2) + radius;
+  var y = Math.random() * (window.innerHeight - radius * 2) + radius;
+  var dx = (Math.random() - 0.5) * 5;
+  var dy = (Math.random() - 0.5) * 5;
+  circleArray.push(new Circle(x, y, dx, dy, radius, keyBoard.currentColor));
+  setTimeout(function () {
+    return circleArray.pop();
+  }, 5000);
 }
 
 var mouse = {
@@ -374,16 +340,16 @@ window.addEventListener('resize', function () {
   init();
 });
 
-var colorArray = ['#B21262', '#FFE519', '#FF007F', '#14B5CC', '#099DB2'];
+var colorArray = _color2.default;
 
-function Circle(x, y, dx, dy, radius) {
+function Circle(x, y, dx, dy, radius, color) {
   this.x = x;
   this.y = y;
   this.dx = dx;
   this.dy = dy;
   this.radius = radius;
   this.minRadius = radius;
-  this.color = colorArray[Math.floor(Math.random() * colorArray.length)];
+  this.color = color || colorArray[Math.floor(Math.random() * colorArray.length)];
 
   this.draw = function () {
     c.beginPath();

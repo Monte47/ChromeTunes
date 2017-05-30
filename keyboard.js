@@ -3,13 +3,15 @@ let canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-var c = canvas.getContext('2d');
+let c = canvas.getContext('2d');
 
 class Keyboard {
-  constructor(scale, colors) {
+  constructor(scale, colors, soundType) {
     this.scale = scale;
     this.colors = colors;
     this.currentColor = null;
+    this.colorArray = [];
+    this.soundType = soundType;
   }
 
   sound(key){
@@ -147,11 +149,13 @@ class Keyboard {
         break;
     }
     o.frequency.value = frequency;
+    o.type = this.soundType;
     o.connect(g);
     g.connect(context.destination);
     o.start(0);
     g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
     setTimeout(() => context.close(), 500);
+    this.colorArray.push(this.currentColor);
   }
 
   draw() {
@@ -161,5 +165,9 @@ class Keyboard {
 
 
 }
+
+
+
+
 
 export default Keyboard;

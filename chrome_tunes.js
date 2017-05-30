@@ -1,13 +1,25 @@
 import Keyboard from './keyboard.js';
 import colors from './color.js';
 
-let bluesScaleG = [49.00, 58.27, 65.41, 69.30, 73.42, 87.31,
+let gBluesScale = [49.00, 58.27, 65.41, 69.30, 73.42, 87.31,
   98.00, 116.5, 130.8, 138.6, 146.8, 174.6,
   196.0, 233.1, 261.6, 277.2, 293.7, 349.2,
   392.0, 466.2, 523.3, 554.4, 587.3, 698.5,
   784.0, 932.3, 1047, 1109, 1175, 1397, 1568];
 
-let keyBoard = new Keyboard(bluesScaleG, colors);
+let dMinorScale = [73.42, 82.41, 87.31, 98.00, 110.0, 116.5, 130.8,
+  146.8, 164.8, 174.6, 196.0, 220.0, 233.1, 261.6,
+  293.7, 329.6, 349.2, 392.0, 440.0, 466.2, 523.3,
+  587.3, 659.3, 698.5, 784.0, 880.0, 932.3, 1047,
+  1175, 1319, 1397];
+
+let scalesArray = [dMinorScale, gBluesScale];
+let scalesI = 1;
+
+let soundTypeArray = ["sine", "square", "triangle", "sawtooth"];
+let soundTypeI = 1;
+
+let keyBoard = new Keyboard(gBluesScale, colors, "sine");
 
 let canvas = document.querySelector('canvas');
 
@@ -23,78 +35,29 @@ window.addEventListener('mousemove', (e) => {
   mouse.y = e.y;
 });
 
-window.addEventListener('click', (e) => {
-  keyBoard.sound();
-});
-
-
 window.addEventListener("keypress", keyHandler, false);
 
 
 function keyHandler(e){
   let key = e.key;
-  keyBoard.sound(key);
-  // var context = new AudioContext();
-  // var o = context.createOscillator();
-  // o.type = "triangle";
-  // var  g = context.createGain();
-  // var frequency;
-  // switch (key) {
-  //   case "z":
-  //     frequency = 146.8; // d minor 3
-  //     break;
-  //   case "x":
-  //     frequency = 164.8;
-  //     break;
-  //   case "c":
-  //     frequency = 174.6;
-  //     break;
-  //   case "v":
-  //     frequency = 196.0;
-  //     break;
-  //   case "b":
-  //     frequency = 220.0;
-  //     break;
-  //   case "n":
-  //     frequency = 233.1;
-  //     break;
-  //   case "m":
-  //     frequency = 261.6;
-  //     break;
-  //   case ",":
-  //     frequency = 293.7;
-  //     break;
-  //   case "q":
-  //     frequency = 196.0; // blues g 3
-  //     break;
-  //   case "w":
-  //     frequency = 233.1;
-  //     break;
-  //   case "e":
-  //     frequency = 261.6;
-  //     break;
-  //   case "r":
-  //     frequency = 277.2;
-  //     break;
-  //   case "t":
-  //     frequency = 293.7;
-  //     break;
-  //   case "y":
-  //     frequency = 349.2;
-  //     break;
-  //   case "u":
-  //     frequency = 392.0;
-  //     break;
-  //   default:
-  //     frequency = 0;
-  //     break;
-  // }
-  // o.frequency.value = frequency;
-  // o.connect(g);
-  // g.connect(context.destination);
-  // o.start(0);
-  // g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
-  // setTimeout(() => context.close(), 500);
+  console.log(key);
+  if(key === " ") {
+    scalesI++;
+    keyBoard = new Keyboard(scalesArray[scalesI % scalesArray.length], colors, soundTypeArray[soundTypeI % soundTypeArray.length]);
+    console.log("hi");
+  } else if (key === "Enter") {
+    soundTypeI++;
+    keyBoard = new Keyboard(scalesArray[scalesI % scalesArray.length], colors, soundTypeArray[soundTypeI % soundTypeArray.length]);
+  } else {
+    keyBoard.sound(key);
+  }
+  let radius = Math.random() * 3 + 20;
+  let x = Math.random() * (window.innerWidth - radius * 2) + radius;
+  let y = Math.random() * (window.innerHeight - radius * 2) + radius;
+  let dx = (Math.random() - 0.5) * 5;
+  let dy = (Math.random() - 0.5) * 5;
+  circleArray.push(new Circle(x, y, dx, dy, radius, keyBoard.currentColor));
+  setTimeout(() => circleArray.pop(), 5000);
 }
 
 
@@ -113,22 +76,16 @@ window.addEventListener('resize', () => {
   init();
 });
 
-var colorArray = [
-  '#B21262',
-  '#FFE519',
-  '#FF007F',
-  '#14B5CC',
-  '#099DB2'
-];
+var colorArray = colors;
 
-function Circle(x, y, dx, dy, radius) {
+function Circle(x, y, dx, dy, radius, color) {
   this.x = x;
   this.y = y;
   this.dx = dx;
   this.dy = dy;
   this.radius = radius;
   this.minRadius = radius;
-  this.color = colorArray[Math.floor(Math.random() * colorArray.length)];
+  this.color = color || colorArray[Math.floor(Math.random() * colorArray.length)];
 
   this.draw = function() {
     c.beginPath();
