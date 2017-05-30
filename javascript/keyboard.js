@@ -17,7 +17,7 @@ class Keyboard {
   sound(key){
     var context = new AudioContext();
     var o = context.createOscillator();
-    var  g = context.createGain();
+    var g = context.createGain();
     var frequency;
     switch (key) {
       case "q":
