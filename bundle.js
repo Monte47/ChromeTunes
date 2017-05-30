@@ -344,22 +344,25 @@ window.addEventListener("keypress", keyHandler, false);
 
 function keyHandler(e) {
   var key = e.key;
+  var currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+  var currentScale = scalesArray[scalesI % scalesArray.length];
   console.log(key);
   if (key === " ") {
     scalesI++;
-    keyBoard = new _keyboard2.default(scalesArray[scalesI % scalesArray.length], _color2.default, soundTypeArray[soundTypeI % soundTypeArray.length]);
+    keyBoard = new _keyboard2.default(currentScale, _color2.default, currentSound);
     console.log("hi");
   } else if (key === "Enter") {
     soundTypeI++;
-    keyBoard = new _keyboard2.default(scalesArray[scalesI % scalesArray.length], _color2.default, soundTypeArray[soundTypeI % soundTypeArray.length]);
+    keyBoard = new _keyboard2.default(currentScale, _color2.default, currentSound);
   } else {
     keyBoard.sound(key);
   }
   var radius = Math.random() * 3 + 60;
   var x = Math.random() * (window.innerWidth - radius * 2) + radius;
   var y = Math.random() * (window.innerHeight - radius * 2) + radius;
-  var dx = 10;
-  var dy = 10;
+  var dirs = [-10, 10];
+  var dx = dirs[Math.floor(Math.random() * dirs.length)];
+  var dy = dirs[Math.floor(Math.random() * dirs.length)];
   circleArray.push(new _circle2.default(x, y, dx, dy, radius, keyBoard.currentColor));
   setTimeout(function () {
     return circleArray.splice(1500, 1);

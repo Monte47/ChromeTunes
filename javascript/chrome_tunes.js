@@ -29,22 +29,25 @@ window.addEventListener("keypress", keyHandler, false);
 
 function keyHandler(e){
   let key = e.key;
+  let currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+  let currentScale = scalesArray[scalesI % scalesArray.length];
   console.log(key);
   if(key === " ") {
     scalesI++;
-    keyBoard = new Keyboard(scalesArray[scalesI % scalesArray.length], colors, soundTypeArray[soundTypeI % soundTypeArray.length]);
+    keyBoard = new Keyboard(currentScale, colors, currentSound);
     console.log("hi");
   } else if (key === "Enter") {
     soundTypeI++;
-    keyBoard = new Keyboard(scalesArray[scalesI % scalesArray.length], colors, soundTypeArray[soundTypeI % soundTypeArray.length]);
+    keyBoard = new Keyboard(currentScale, colors, currentSound);
   } else {
     keyBoard.sound(key);
   }
   let radius = Math.random() * 3 + 60;
   let x = Math.random() * (window.innerWidth - radius * 2) + radius;
   let y = Math.random() * (window.innerHeight - radius * 2) + radius;
-  let dx = 10;
-  let dy = 10;
+  let dirs = [-10, 10];
+  let dx = dirs[Math.floor(Math.random() * dirs.length)];
+  let dy = dirs[Math.floor(Math.random() * dirs.length)];
   circleArray.push(new Circle(x, y, dx, dy, radius, keyBoard.currentColor));
   setTimeout(() => circleArray.splice(1500, 1), 5000);
 }
