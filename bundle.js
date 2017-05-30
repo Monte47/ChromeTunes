@@ -63,11 +63,25 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var colors = ['#42F2F7', '#E5446D', '#FB4D3D', '#7D7ABC', '#37FF8B', '#8D9EC6', '#EAC435', '#E40066', '#345995', '#C4D6B0', '#090C9B', '#B49FCC', '#152614', '#FDE74C', '#9BC53D', '#F06449', '#31E981', '#35605A', '#F2F79E', '#03CEA4', '#A390E4', '#99C5B5', '#706C61', '#E4D9FF', '#1E2749', '#A23E48', '#FFF275', '#C6CA53', '#7B7263', '#D30C7B', '#F2F3AE'];
+
+exports.default = colors;
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -251,16 +265,16 @@ var Keyboard = function () {
     value: function draw() {
       c.strokeStyle = 'black';
       c.lineWidth = 3;
-      c.font = "60px Slackey";
+      c.font = "60px Coiny";
       c.fillStyle = this.currentColor;
       c.textAlign = "center";
       c.strokeText("Press a Key to Make a Sound", canvas.width / 2, canvas.height / 2);
       c.fillText("Press a Key to Make a Sound", canvas.width / 2, canvas.height / 2);
-      c.font = "30px Comic Sans MS";
-      c.strokeText("Press Enter to change sound type", canvas.width / 2, canvas.height / 1.2);
-      c.fillText("Press Enter to change sound type", canvas.width / 2, canvas.height / 1.2);
-      c.strokeText("Press Space to change sound key", canvas.width / 2, canvas.height / 1.1);
-      c.fillText("Press Space to change sound key", canvas.width / 2, canvas.height / 1.1);
+      c.font = "30px Coiny";
+      c.strokeText("Press Enter to Change Sound Type", canvas.width / 2, canvas.height / 1.2);
+      c.fillText("Press Enter to Change Sound Type", canvas.width / 2, canvas.height / 1.2);
+      c.strokeText("Press Space to Change Key", canvas.width / 2, canvas.height / 1.1);
+      c.fillText("Press Space to Change Key", canvas.width / 2, canvas.height / 1.1);
     }
   }]);
 
@@ -270,21 +284,37 @@ var Keyboard = function () {
 exports.default = Keyboard;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _keyboard = __webpack_require__(0);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var gBluesScale = exports.gBluesScale = [49.00, 58.27, 65.41, 69.30, 73.42, 87.31, 98.00, 116.5, 130.8, 138.6, 146.8, 174.6, 196.0, 233.1, 261.6, 277.2, 293.7, 349.2, 392.0, 466.2, 523.3, 554.4, 587.3, 698.5, 784.0, 932.3, 1047, 1109, 1175, 1397, 1568];
+
+var aMinorScale = exports.aMinorScale = [110, 123.5, 130.8, 146.8, 164.8, 174.6, 196.0, 220.0, 246.9, 261.1, 293.7, 329.6, 349.2, 392.0, 440.0, 493.9, 523.3, 587.3, 659.3, 698.5, 784.0, 880.0, 987.8, 1047, 1175, 1319, 1397, 1568, 1760, 1976, 2093];
+
+var dMinorScale = exports.dMinorScale = [73.42, 82.41, 87.31, 98.00, 110.0, 116.5, 130.8, 146.8, 164.8, 174.6, 196.0, 220.0, 233.1, 261.6, 293.7, 329.6, 349.2, 392.0, 440.0, 466.2, 523.3, 587.3, 659.3, 698.5, 784.0, 880.0, 932.3, 1047, 1175, 1319, 1397];
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _keyboard = __webpack_require__(1);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 
-var _color = __webpack_require__(2);
+var _color = __webpack_require__(0);
 
 var _color2 = _interopRequireDefault(_color);
 
-var _sound = __webpack_require__(3);
+var _sound = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -600,36 +630,6 @@ animate();
 //
 // init();
 // animate();
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var colors = ['#42F2F7', '#E5446D', '#FB4D3D', '#7D7ABC', '#37FF8B', '#8D9EC6', '#EAC435', '#E40066', '#345995', '#C4D6B0', '#090C9B', '#B49FCC', '#152614', '#FDE74C', '#9BC53D', '#F06449', '#31E981', '#35605A', '#F2F79E', '#03CEA4', '#A390E4', '#99C5B5', '#706C61', '#E4D9FF', '#1E2749', '#A23E48', '#FFF275', '#C6CA53', '#7B7263', '#D30C7B', '#F2F3AE'];
-
-exports.default = colors;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var gBluesScale = exports.gBluesScale = [49.00, 58.27, 65.41, 69.30, 73.42, 87.31, 98.00, 116.5, 130.8, 138.6, 146.8, 174.6, 196.0, 233.1, 261.6, 277.2, 293.7, 349.2, 392.0, 466.2, 523.3, 554.4, 587.3, 698.5, 784.0, 932.3, 1047, 1109, 1175, 1397, 1568];
-
-var aMinorScale = exports.aMinorScale = [110, 123.5, 130.8, 146.8, 164.8, 174.6, 196.0, 220.0, 246.9, 261.1, 293.7, 329.6, 349.2, 392.0, 440.0, 493.9, 523.3, 587.3, 659.3, 698.5, 784.0, 880.0, 987.8, 1047, 1175, 1319, 1397, 1568, 1760, 1976, 2093];
-
-var dMinorScale = exports.dMinorScale = [73.42, 82.41, 87.31, 98.00, 110.0, 116.5, 130.8, 146.8, 164.8, 174.6, 196.0, 220.0, 233.1, 261.6, 293.7, 329.6, 349.2, 392.0, 440.0, 466.2, 523.3, 587.3, 659.3, 698.5, 784.0, 880.0, 932.3, 1047, 1175, 1319, 1397];
 
 /***/ })
 /******/ ]);
