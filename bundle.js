@@ -116,7 +116,7 @@ var Keyboard = function () {
   _createClass(Keyboard, [{
     key: 'sound',
     value: function sound(key) {
-      var context = new AudioContext();
+      var context = new (window.AudioContext || window.webkitAudioContext)();
       var o = context.createOscillator();
       var g = context.createGain();
       var frequency;
@@ -299,6 +299,8 @@ var aMinorScale = exports.aMinorScale = [110, 123.5, 130.8, 146.8, 164.8, 174.6,
 
 var dMinorScale = exports.dMinorScale = [73.42, 82.41, 87.31, 98.00, 110.0, 116.5, 130.8, 146.8, 164.8, 174.6, 196.0, 220.0, 233.1, 261.6, 293.7, 329.6, 349.2, 392.0, 440.0, 466.2, 523.3, 587.3, 659.3, 698.5, 784.0, 880.0, 932.3, 1047, 1175, 1319, 1397];
 
+var eMajorScale = exports.eMajorScale = [82.41, 92.5, 103.8, 110, 123.5, 138.6, 155.6, 164.8, 185.0, 207.7, 220.0, 246.9, 277.2, 311.1, 329.6, 370, 415.3, 440, 493.9, 554.4, 622.3, 659.3, 740, 830.6, 880, 987.8, 1109, 1245, 1319, 1480, 1661];
+
 /***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -327,7 +329,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var c = canvas.getContext('2d');
 
-var scalesArray = [_sound.aMinorScale, _sound.gBluesScale];
+var scalesArray = [_sound.aMinorScale, _sound.gBluesScale, _sound.eMajorScale];
 var scalesI = 1;
 
 var soundTypeArray = ["sine", "triangle", "square", "sawtooth"];
@@ -345,26 +347,27 @@ function keyHandler(e) {
   if (key === " ") {
     scalesI++;
     keyBoard = new _keyboard2.default(currentScale, _color2.default, currentSound);
-    console.log("hi");
   } else if (key === "Enter") {
     soundTypeI++;
     keyBoard = new _keyboard2.default(currentScale, _color2.default, currentSound);
   } else {
     keyBoard.sound(key);
   }
-  var radius = Math.random() * 3 + 60;
+  createSoundCircle();
+  setTimeout(function () {
+    return circleArray.splice(1500, 1);
+  }, 5000);
+}
+
+var createSoundCircle = function createSoundCircle() {
+  var radius = 60;
   var x = Math.random() * (window.innerWidth - radius * 2) + radius;
   var y = Math.random() * (window.innerHeight - radius * 2) + radius;
   var dirs = [-10, 10];
   var dx = dirs[Math.floor(Math.random() * dirs.length)];
   var dy = dirs[Math.floor(Math.random() * dirs.length)];
   circleArray.push(new _circle2.default(x, y, dx, dy, radius, keyBoard.currentColor));
-  setTimeout(function () {
-    return circleArray.splice(1500, 1);
-  }, 5000);
-}
-
-var maxRadius = 50;
+};
 
 window.addEventListener('resize', function () {
   canvas.width = window.innerWidth;
@@ -387,7 +390,7 @@ var init = function init() {
   }
 };
 
-function animate() {
+var animate = function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, innerWidth, innerHeight);
 
@@ -395,7 +398,7 @@ function animate() {
     circleArray[j].update();
   }
   keyBoard.draw();
-}
+};
 
 init();
 animate();
@@ -440,8 +443,6 @@ var mouse = {
   y: undefined
 };
 
-var maxRadius = 50;
-
 var Circle = function () {
   function Circle(x, y, dx, dy, radius, color) {
     _classCallCheck(this, Circle);
@@ -452,6 +453,7 @@ var Circle = function () {
     this.dy = dy;
     this.radius = radius;
     this.minRadius = radius;
+    this.maxRadius = radius + 45;
     this.color = color || colorArray[Math.floor(Math.random() * colorArray.length)];
   }
 
@@ -460,7 +462,6 @@ var Circle = function () {
     value: function draw() {
       c.beginPath();
       c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-      c.strokeStyle = 'blue';
       c.fillStyle = this.color;
       c.fill();
     }
@@ -477,8 +478,8 @@ var Circle = function () {
       this.y += this.dy;
       this.draw();
 
-      if (mouse.x - this.x < 50 && mouse.x - this.x > -50 && mouse.y - this.y < 50 && mouse.y - this.y > -50) {
-        if (this.radius < maxRadius) {
+      if (mouse.x - this.x < this.maxRadius && mouse.x - this.x > -this.maxRadius && mouse.y - this.y < this.maxRadius && mouse.y - this.y > -this.maxRadius) {
+        if (this.radius < this.maxRadius) {
           this.radius += 1;
         }
       } else if (this.radius > this.minRadius) {

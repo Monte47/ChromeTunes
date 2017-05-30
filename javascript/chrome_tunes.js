@@ -1,18 +1,18 @@
 import Keyboard from './keyboard.js';
 import Circle from './circle.js';
 import colors from './color.js';
-import { gBluesScale, aMinorScale } from './sound.js';
+import { gBluesScale, aMinorScale, eMajorScale } from './sound.js';
 
-let canvas = document.querySelector('canvas');
+const canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-let c = canvas.getContext('2d');
+const c = canvas.getContext('2d');
 
 
-let scalesArray = [aMinorScale, gBluesScale];
+const scalesArray = [aMinorScale, gBluesScale, eMajorScale];
 let scalesI = 1;
 
-let soundTypeArray = ["sine", "triangle", "square", "sawtooth"];
+const soundTypeArray = ["sine", "triangle", "square", "sawtooth"];
 let soundTypeI = 1;
 
 let keyBoard = new Keyboard(gBluesScale, colors, "sine");
@@ -29,25 +29,25 @@ function keyHandler(e){
   if(key === " ") {
     scalesI++;
     keyBoard = new Keyboard(currentScale, colors, currentSound);
-    console.log("hi");
   } else if (key === "Enter") {
     soundTypeI++;
     keyBoard = new Keyboard(currentScale, colors, currentSound);
   } else {
     keyBoard.sound(key);
   }
-  let radius = Math.random() * 3 + 60;
+  createSoundCircle();
+  setTimeout(() => circleArray.splice(1500, 1), 5000);
+}
+
+const createSoundCircle = () => {
+  let radius = 60;
   let x = Math.random() * (window.innerWidth - radius * 2) + radius;
   let y = Math.random() * (window.innerHeight - radius * 2) + radius;
   let dirs = [-10, 10];
   let dx = dirs[Math.floor(Math.random() * dirs.length)];
   let dy = dirs[Math.floor(Math.random() * dirs.length)];
   circleArray.push(new Circle(x, y, dx, dy, radius, keyBoard.currentColor));
-  setTimeout(() => circleArray.splice(1500, 1), 5000);
-}
-
-
-let maxRadius = 50;
+};
 
 window.addEventListener('resize', () => {
   canvas.width = window.innerWidth;
@@ -71,7 +71,7 @@ const init = () => {
   }
 };
 
-function animate() {
+const animate = () => {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, innerWidth, innerHeight);
 
@@ -80,8 +80,7 @@ function animate() {
   }
   keyBoard.draw();
 
-
-}
+};
 
 init();
 animate();

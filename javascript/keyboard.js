@@ -15,7 +15,7 @@ class Keyboard {
   }
 
   sound(key){
-    var context = new AudioContext();
+    var context = new (window.AudioContext || window.webkitAudioContext);
     var o = context.createOscillator();
     var g = context.createGain();
     var frequency;
