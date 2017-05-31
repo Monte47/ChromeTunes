@@ -18,26 +18,30 @@ let soundTypeI = 0;
 let keyBoard = new Keyboard(scalesArray[0], colors, soundTypeArray[0]);
 
 
-window.addEventListener("keypress", keyHandler, false);
+window.addEventListener("keypress", (e) => keyHandler(e), false);
 
 
-function keyHandler(e){
+// function keyHandler(e){
+const keyHandler = (e) => {
   let key = e.key;
-  let currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
-  let currentScale = scalesArray[scalesI % scalesArray.length];
   console.log(key);
   if(key === " ") {
     scalesI++;
+    let currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+    let currentScale = scalesArray[scalesI % scalesArray.length];
     keyBoard = new Keyboard(currentScale, colors, currentSound);
+    console.log(keyBoard);
   } else if (key === "Enter") {
     soundTypeI++;
+    let currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+    let currentScale = scalesArray[scalesI % scalesArray.length];
     keyBoard = new Keyboard(currentScale, colors, currentSound);
   } else {
     keyBoard.sound(key);
   }
   createSoundCircle();
   setTimeout(() => circleArray.splice(1500, 1), 5000);
-}
+};
 
 const createSoundCircle = () => {
   let radius = 60;

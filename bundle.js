@@ -267,7 +267,6 @@ var Keyboard = function () {
         return context.close();
       }, 500);
       this.colorArray.push(this.currentColor);
-      console.log(this.key);
     }
   }, {
     key: 'draw',
@@ -350,19 +349,25 @@ var soundTypeI = 0;
 
 var keyBoard = new _keyboard2.default(scalesArray[0], _color2.default, soundTypeArray[0]);
 
-window.addEventListener("keypress", keyHandler, false);
+window.addEventListener("keypress", function (e) {
+  return keyHandler(e);
+}, false);
 
-function keyHandler(e) {
+// function keyHandler(e){
+var keyHandler = function keyHandler(e) {
   var key = e.key;
-  var currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
-  var currentScale = scalesArray[scalesI % scalesArray.length];
   console.log(key);
   if (key === " ") {
     scalesI++;
+    var currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+    var currentScale = scalesArray[scalesI % scalesArray.length];
     keyBoard = new _keyboard2.default(currentScale, _color2.default, currentSound);
+    console.log(keyBoard);
   } else if (key === "Enter") {
     soundTypeI++;
-    keyBoard = new _keyboard2.default(currentScale, _color2.default, currentSound);
+    var _currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+    var _currentScale = scalesArray[scalesI % scalesArray.length];
+    keyBoard = new _keyboard2.default(_currentScale, _color2.default, _currentSound);
   } else {
     keyBoard.sound(key);
   }
@@ -370,7 +375,7 @@ function keyHandler(e) {
   setTimeout(function () {
     return circleArray.splice(1500, 1);
   }, 5000);
-}
+};
 
 var createSoundCircle = function createSoundCircle() {
   var radius = 60;

@@ -164,7 +164,6 @@ class Keyboard {
     g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
     setTimeout(() => context.close(), 500);
     this.colorArray.push(this.currentColor);
-    console.log(this.key);
   }
 
   draw() {
