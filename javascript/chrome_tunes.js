@@ -10,12 +10,12 @@ const c = canvas.getContext('2d');
 
 
 const scalesArray = [aMinorScale, gBluesScale, eMajorScale];
-let scalesI = 1;
+let scalesI = 0;
 
 const soundTypeArray = ["sine", "triangle", "square", "sawtooth"];
-let soundTypeI = 1;
+let soundTypeI = 0;
 
-let keyBoard = new Keyboard(gBluesScale, colors, "sine");
+let keyBoard = new Keyboard(scalesArray[0], colors, soundTypeArray[0]);
 
 
 window.addEventListener("keypress", keyHandler, false);

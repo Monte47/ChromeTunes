@@ -111,6 +111,14 @@ var Keyboard = function () {
     this.currentColor = null;
     this.colorArray = [];
     this.soundType = soundType;
+    this.key;
+    if (this.scale[0] === 49.00) {
+      this.key = "G Blues";
+    } else if (this.scale[0] === 110) {
+      this.key = "A Minor";
+    } else {
+      this.key = "E Major";
+    }
   }
 
   _createClass(Keyboard, [{
@@ -259,6 +267,7 @@ var Keyboard = function () {
         return context.close();
       }, 500);
       this.colorArray.push(this.currentColor);
+      console.log(this.key);
     }
   }, {
     key: 'draw',
@@ -271,10 +280,14 @@ var Keyboard = function () {
       c.strokeText("Press a Key to Make a Sound", canvas.width / 2, canvas.height / 2);
       c.fillText("Press a Key to Make a Sound", canvas.width / 2, canvas.height / 2);
       c.font = "30px Coiny";
-      c.strokeText("Press Enter to Change Sound Type", canvas.width / 2, canvas.height / 1.2);
-      c.fillText("Press Enter to Change Sound Type", canvas.width / 2, canvas.height / 1.2);
+      c.strokeText("Press Enter to Change Sound Type", canvas.width / 2, canvas.height / 1.25);
+      c.fillText("Press Enter to Change Sound Type", canvas.width / 2, canvas.height / 1.25);
+      c.strokeText('' + this.key, canvas.width / 2, canvas.height / 1.17);
+      c.fillText('' + this.key, canvas.width / 2, canvas.height / 1.17);
       c.strokeText("Press Space to Change Key", canvas.width / 2, canvas.height / 1.1);
       c.fillText("Press Space to Change Key", canvas.width / 2, canvas.height / 1.1);
+      c.strokeText('' + this.soundType, canvas.width / 2, canvas.height / 1.05);
+      c.fillText('' + this.soundType, canvas.width / 2, canvas.height / 1.05);
     }
   }]);
 
@@ -330,12 +343,12 @@ canvas.height = window.innerHeight;
 var c = canvas.getContext('2d');
 
 var scalesArray = [_sound.aMinorScale, _sound.gBluesScale, _sound.eMajorScale];
-var scalesI = 1;
+var scalesI = 0;
 
 var soundTypeArray = ["sine", "triangle", "square", "sawtooth"];
-var soundTypeI = 1;
+var soundTypeI = 0;
 
-var keyBoard = new _keyboard2.default(_sound.gBluesScale, _color2.default, "sine");
+var keyBoard = new _keyboard2.default(scalesArray[0], _color2.default, soundTypeArray[0]);
 
 window.addEventListener("keypress", keyHandler, false);
 

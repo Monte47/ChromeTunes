@@ -12,6 +12,14 @@ class Keyboard {
     this.currentColor = null;
     this.colorArray = [];
     this.soundType = soundType;
+    this.key;
+    if(this.scale[0] === 49.00){
+      this.key = "G Blues";
+    } else if (this.scale[0] === 110) {
+      this.key = "A Minor";
+    } else {
+      this.key = "E Major";
+    }
   }
 
   sound(key){
@@ -156,6 +164,7 @@ class Keyboard {
     g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
     setTimeout(() => context.close(), 500);
     this.colorArray.push(this.currentColor);
+    console.log(this.key);
   }
 
   draw() {
@@ -167,10 +176,14 @@ class Keyboard {
     c.strokeText("Press a Key to Make a Sound", canvas.width/2, canvas.height/2);
     c.fillText("Press a Key to Make a Sound", canvas.width/2, canvas.height/2);
     c.font = "30px Coiny";
-    c.strokeText("Press Enter to Change Sound Type", canvas.width/2, canvas.height/1.2);
-    c.fillText("Press Enter to Change Sound Type", canvas.width/2, canvas.height/1.2);
+    c.strokeText("Press Enter to Change Sound Type", canvas.width/2, canvas.height/1.25);
+    c.fillText("Press Enter to Change Sound Type", canvas.width/2, canvas.height/1.25);
+    c.strokeText(`${this.key}`, canvas.width/2, canvas.height/1.17);
+    c.fillText(`${this.key}`, canvas.width/2, canvas.height/1.17);
     c.strokeText("Press Space to Change Key", canvas.width/2, canvas.height/1.1);
     c.fillText("Press Space to Change Key", canvas.width/2, canvas.height/1.1);
+    c.strokeText(`${this.soundType}`, canvas.width/2, canvas.height/1.05);
+    c.fillText(`${this.soundType}`, canvas.width/2, canvas.height/1.05);
   }
 
 
