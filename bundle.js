@@ -424,6 +424,23 @@ var animate = function animate() {
 init();
 animate();
 
+////////////////////
+////////////////////
+
+var nav = document.getElementById("nav");
+var about = document.getElementById("about-modal");
+console.log(nav);
+console.log(about);
+
+nav.addEventListener('click', function () {
+  console.log("hello");
+  if (about.classList.contains("hidden")) {
+    about.classList.remove("hidden");
+  } else {
+    about.classList.add("hidden");
+  }
+});
+
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {

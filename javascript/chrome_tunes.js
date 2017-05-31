@@ -88,3 +88,23 @@ const animate = () => {
 
 init();
 animate();
+
+
+
+
+////////////////////
+////////////////////
+
+let nav = document.getElementById("nav");
+let about = document.getElementById("about-modal");
+console.log(nav);
+console.log(about);
+
+nav.addEventListener('click', () => {
+  console.log("hello");
+  if (about.classList.contains("hidden")) {
+    about.classList.remove("hidden");
+  } else {
+    about.classList.add("hidden");
+  }
+});
