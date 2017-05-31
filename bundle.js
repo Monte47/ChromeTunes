@@ -351,7 +351,7 @@ var soundTypeI = 0;
 
 var keyBoard = new _keyboard2.default(scalesArray[0], _color2.default, soundTypeArray[0]);
 
-window.addEventListener("keypress", function (e) {
+window.addEventListener("keydown", function (e) {
   return keyHandler(e);
 }, false);
 

@@ -17,7 +17,7 @@ let soundTypeI = 0;
 let keyBoard = new Keyboard(scalesArray[0], colors, soundTypeArray[0]);
 
 
-window.addEventListener("keypress", (e) => keyHandler(e), false);
+window.addEventListener("keydown", (e) => keyHandler(e), false);
 
 
 // function keyHandler(e){
