@@ -33,7 +33,6 @@ This project will be completed using the following Technologies:
 
 - Vanilla Javascript for logic to play sounds and generate colors
 - HTML with Canvas and CSS for DOM manipulation, rendering, and styling
-- Easel for creating animations on Canvas
 - Webpack to bundle together various scripts necessary for the app to run
 
 In addition to the webpack entry file, there will be three scripts associated with this app:
@@ -53,14 +52,14 @@ In addition to the webpack entry file, there will be three scripts associated wi
 - Research creating sound waves in Javascript
 - Determine which scales/notes to map to keyboard
 
-**Day 2**: This day will be dedicated to learning canvas, and using Easel to generate animations. Additionally the sound functionality will be created so that keys will generate an appropriate sound. Goals for the day include:
+**Day 2**: This day will be dedicated to learning canvas, and using Canvas to generate animations. Additionally the sound functionality will be created so that keys will generate an appropriate sound. Goals for the day include:
 
 - Generate a canvas
 - Complete `sound.js` logic functionality
 - Map each key to its appropriate sound and key-value on the computer keyboard
-- Research Easel functionality and animation
+- Research Canvas functionality and animation
 
-**Day 3**: This day will be dedicated to implementing the colors feature of the app in which a brush of color will be animated across the background and disappear momentarily using Easel. Goals for the day include:
+**Day 3**: This day will be dedicated to implementing the colors feature of the app in which a brush of color will be animated across the background and disappear momentarily using Canvas. Goals for the day include:
 
 - Complete `color.js` logic functionality
 - Map each key to its appropriate color

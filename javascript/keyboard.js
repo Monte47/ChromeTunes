@@ -177,12 +177,12 @@ class Keyboard {
     c.font = "30px Coiny";
     c.strokeText("Press Enter to Change Sound Type", canvas.width/2, canvas.height/1.25);
     c.fillText("Press Enter to Change Sound Type", canvas.width/2, canvas.height/1.25);
-    c.strokeText(`${this.key}`, canvas.width/2, canvas.height/1.17);
-    c.fillText(`${this.key}`, canvas.width/2, canvas.height/1.17);
+    c.strokeText(`${this.soundType}`, canvas.width/2, canvas.height/1.17);
+    c.fillText(`${this.soundType}`, canvas.width/2, canvas.height/1.17);
     c.strokeText("Press Space to Change Key", canvas.width/2, canvas.height/1.1);
     c.fillText("Press Space to Change Key", canvas.width/2, canvas.height/1.1);
-    c.strokeText(`${this.soundType}`, canvas.width/2, canvas.height/1.05);
-    c.fillText(`${this.soundType}`, canvas.width/2, canvas.height/1.05);
+    c.strokeText(`${this.key}`, canvas.width/2, canvas.height/1.05);
+    c.fillText(`${this.key}`, canvas.width/2, canvas.height/1.05);
   }
 
 
