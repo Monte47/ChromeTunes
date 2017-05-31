@@ -445,7 +445,6 @@ window.addEventListener("keydown", function (e) {
   return keyHandler(e);
 }, false);
 
-// function keyHandler(e){
 var keyHandler = function keyHandler(e) {
   var key = e.key;
   var currentSound = void 0;

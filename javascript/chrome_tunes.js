@@ -20,7 +20,6 @@ let keyBoard = new Keyboard(scalesArray[0], colors, soundTypeArray[0]);
 window.addEventListener("keydown", (e) => keyHandler(e), false);
 
 
-// function keyHandler(e){
 const keyHandler = (e) => {
   let key = e.key;
   let currentSound;

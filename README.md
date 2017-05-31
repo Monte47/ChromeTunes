@@ -39,7 +39,7 @@ In addition to the webpack entry file, there will be three scripts associated wi
 
 `keyboard.js`: this script will contain all the logic for creating the keyboard and its elements, which will be rendered to the dom.
 
-`sound.js`: this script will handle the logic for creating sounds when the keys are activated
+`chrome_tunes.js`: this script will be the main entry file and will host all logic for creating the canvas, the listeners and corresponding functions.
 
 `color.js`: this script will handle the logic for generating a color on the background image when a key is pressed
 
