@@ -305,6 +305,8 @@ exports.default = Keyboard;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var keys = exports.keys = "qwertyuiop[]asdfghjkl;'zxcvbnm,".split("");
+
 var gBluesScale = exports.gBluesScale = [49.00, 58.27, 65.41, 69.30, 73.42, 87.31, 98.00, 116.5, 130.8, 138.6, 146.8, 174.6, 196.0, 233.1, 261.6, 277.2, 293.7, 349.2, 392.0, 466.2, 523.3, 554.4, 587.3, 698.5, 784.0, 932.3, 1047, 1109, 1175, 1397, 1568];
 
 var aMinorScale = exports.aMinorScale = [110, 123.5, 130.8, 146.8, 164.8, 174.6, 196.0, 220.0, 246.9, 261.1, 293.7, 329.6, 349.2, 392.0, 440.0, 493.9, 523.3, 587.3, 659.3, 698.5, 784.0, 880.0, 987.8, 1047, 1175, 1319, 1397, 1568, 1760, 1976, 2093];
@@ -356,25 +358,26 @@ window.addEventListener("keypress", function (e) {
 // function keyHandler(e){
 var keyHandler = function keyHandler(e) {
   var key = e.key;
+  var currentSound = void 0;
+  var currentScale = void 0;
   console.log(key);
   if (key === " ") {
     scalesI++;
-    var currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
-    var currentScale = scalesArray[scalesI % scalesArray.length];
+    currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+    currentScale = scalesArray[scalesI % scalesArray.length];
     keyBoard = new _keyboard2.default(currentScale, _color2.default, currentSound);
-    console.log(keyBoard);
   } else if (key === "Enter") {
     soundTypeI++;
-    var _currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
-    var _currentScale = scalesArray[scalesI % scalesArray.length];
-    keyBoard = new _keyboard2.default(_currentScale, _color2.default, _currentSound);
-  } else {
+    currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+    currentScale = scalesArray[scalesI % scalesArray.length];
+    keyBoard = new _keyboard2.default(currentScale, _color2.default, currentSound);
+  } else if (_sound.keys.indexOf(key) > -1) {
     keyBoard.sound(key);
+    createSoundCircle();
+    setTimeout(function () {
+      return circleArray.splice(1500, 1);
+    }, 5000);
   }
-  createSoundCircle();
-  setTimeout(function () {
-    return circleArray.splice(1500, 1);
-  }, 5000);
 };
 
 var createSoundCircle = function createSoundCircle() {

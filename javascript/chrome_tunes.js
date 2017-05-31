@@ -1,13 +1,12 @@
 import Keyboard from './keyboard.js';
 import Circle from './circle.js';
 import colors from './color.js';
-import { gBluesScale, aMinorScale, eMajorScale } from './sound.js';
+import { gBluesScale, aMinorScale, eMajorScale, keys } from './sound.js';
 
 const canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const c = canvas.getContext('2d');
-
 
 const scalesArray = [aMinorScale, gBluesScale, eMajorScale];
 let scalesI = 0;
@@ -24,23 +23,24 @@ window.addEventListener("keypress", (e) => keyHandler(e), false);
 // function keyHandler(e){
 const keyHandler = (e) => {
   let key = e.key;
+  let currentSound;
+  let currentScale;
   console.log(key);
   if(key === " ") {
     scalesI++;
-    let currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
-    let currentScale = scalesArray[scalesI % scalesArray.length];
+    currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+    currentScale = scalesArray[scalesI % scalesArray.length];
     keyBoard = new Keyboard(currentScale, colors, currentSound);
-    console.log(keyBoard);
   } else if (key === "Enter") {
     soundTypeI++;
-    let currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
-    let currentScale = scalesArray[scalesI % scalesArray.length];
+    currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+    currentScale = scalesArray[scalesI % scalesArray.length];
     keyBoard = new Keyboard(currentScale, colors, currentSound);
-  } else {
+  } else if (keys.indexOf(key) > -1) {
     keyBoard.sound(key);
+    createSoundCircle();
+    setTimeout(() => circleArray.splice(1500, 1), 5000);
   }
-  createSoundCircle();
-  setTimeout(() => circleArray.splice(1500, 1), 5000);
 };
 
 const createSoundCircle = () => {

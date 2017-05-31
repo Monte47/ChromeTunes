@@ -1,3 +1,5 @@
+export const keys = "qwertyuiop[]asdfghjkl;'zxcvbnm,".split("");
+
 export const gBluesScale = [49.00, 58.27, 65.41, 69.30, 73.42, 87.31,
   98.00, 116.5, 130.8, 138.6, 146.8, 174.6,
   196.0, 233.1, 261.6, 277.2, 293.7, 349.2,
