@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -82,6 +82,96 @@ exports.default = colors;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _color = __webpack_require__(0);
+
+var _color2 = _interopRequireDefault(_color);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var canvas = document.querySelector('canvas');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+var c = canvas.getContext('2d');
+
+var colorArray = _color2.default;
+
+window.addEventListener('mousemove', function (e) {
+  mouse.x = e.x;
+  mouse.y = e.y;
+});
+
+var mouse = {
+  x: undefined,
+  y: undefined
+};
+
+var Circle = function () {
+  function Circle(x, y, dx, dy, radius, color) {
+    _classCallCheck(this, Circle);
+
+    this.x = x;
+    this.y = y;
+    this.dx = dx;
+    this.dy = dy;
+    this.radius = radius;
+    this.minRadius = radius;
+    this.maxRadius = radius + 45;
+    this.color = color || colorArray[Math.floor(Math.random() * colorArray.length)];
+  }
+
+  _createClass(Circle, [{
+    key: 'draw',
+    value: function draw() {
+      c.beginPath();
+      c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+      c.fillStyle = this.color;
+      c.fill();
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      if (this.x + this.radius > innerWidth || this.x - this.radius < 0) {
+        this.dx = -this.dx;
+      }
+      if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
+        this.dy = -this.dy;
+      }
+      this.x += this.dx;
+      this.y += this.dy;
+      this.draw();
+
+      if (mouse.x - this.x < this.maxRadius && mouse.x - this.x > -this.maxRadius && mouse.y - this.y < this.maxRadius && mouse.y - this.y > -this.maxRadius) {
+        if (this.radius < this.maxRadius) {
+          this.radius += 1;
+        }
+      } else if (this.radius > this.minRadius) {
+        this.radius -= 1;
+      }
+    }
+  }]);
+
+  return Circle;
+}();
+
+exports.default = Circle;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -296,7 +386,7 @@ var Keyboard = function () {
 exports.default = Keyboard;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -316,17 +406,17 @@ var dMinorScale = exports.dMinorScale = [73.42, 82.41, 87.31, 98.00, 110.0, 116.
 var eMajorScale = exports.eMajorScale = [82.41, 92.5, 103.8, 110, 123.5, 138.6, 155.6, 164.8, 185.0, 207.7, 220.0, 246.9, 277.2, 311.1, 329.6, 370, 415.3, 440, 493.9, 554.4, 622.3, 659.3, 740, 830.6, 880, 987.8, 1109, 1245, 1319, 1480, 1661];
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _keyboard = __webpack_require__(1);
+var _keyboard = __webpack_require__(2);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 
-var _circle = __webpack_require__(4);
+var _circle = __webpack_require__(1);
 
 var _circle2 = _interopRequireDefault(_circle);
 
@@ -334,7 +424,7 @@ var _color = __webpack_require__(0);
 
 var _color2 = _interopRequireDefault(_color);
 
-var _sound = __webpack_require__(2);
+var _sound = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -446,96 +536,6 @@ nav.addEventListener('click', function () {
 closeButton.addEventListener('click', function () {
   about.classList.add("hidden");
 });
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _color = __webpack_require__(0);
-
-var _color2 = _interopRequireDefault(_color);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var canvas = document.querySelector('canvas');
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-var c = canvas.getContext('2d');
-
-var colorArray = _color2.default;
-
-window.addEventListener('mousemove', function (e) {
-  mouse.x = e.x;
-  mouse.y = e.y;
-});
-
-var mouse = {
-  x: undefined,
-  y: undefined
-};
-
-var Circle = function () {
-  function Circle(x, y, dx, dy, radius, color) {
-    _classCallCheck(this, Circle);
-
-    this.x = x;
-    this.y = y;
-    this.dx = dx;
-    this.dy = dy;
-    this.radius = radius;
-    this.minRadius = radius;
-    this.maxRadius = radius + 45;
-    this.color = color || colorArray[Math.floor(Math.random() * colorArray.length)];
-  }
-
-  _createClass(Circle, [{
-    key: 'draw',
-    value: function draw() {
-      c.beginPath();
-      c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-      c.fillStyle = this.color;
-      c.fill();
-    }
-  }, {
-    key: 'update',
-    value: function update() {
-      if (this.x + this.radius > innerWidth || this.x - this.radius < 0) {
-        this.dx = -this.dx;
-      }
-      if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
-        this.dy = -this.dy;
-      }
-      this.x += this.dx;
-      this.y += this.dy;
-      this.draw();
-
-      if (mouse.x - this.x < this.maxRadius && mouse.x - this.x > -this.maxRadius && mouse.y - this.y < this.maxRadius && mouse.y - this.y > -this.maxRadius) {
-        if (this.radius < this.maxRadius) {
-          this.radius += 1;
-        }
-      } else if (this.radius > this.minRadius) {
-        this.radius -= 1;
-      }
-    }
-  }]);
-
-  return Circle;
-}();
-
-exports.default = Circle;
 
 /***/ })
 /******/ ]);
