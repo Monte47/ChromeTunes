@@ -59,8 +59,10 @@ canvas {
 
 p {
   margin: 0;
-text-align: center;
-  padding: 10px;
+  text-align: left;
+  padding: 20px;
+  font-family: "Montserrat";
+  font-size: 20px;
 }
 
 #about-section {
@@ -74,10 +76,11 @@ text-align: center;
 #waveform-image {
   margin-top: 10px;
   height: 250px;
-  width: 380px;
+  width: 420px;
 }
 
 h2 {
-  font-size: 36px;
+  font-size: 46px;
   margin-bottom: 0px;
+  margin-top: 20px;
 }
