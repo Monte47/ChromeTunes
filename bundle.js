@@ -429,6 +429,8 @@ animate();
 
 var nav = document.getElementById("nav");
 var about = document.getElementById("about-modal");
+var root = document.getElementById("root");
+var closeButton = document.getElementById("close-button");
 console.log(nav);
 console.log(about);
 
@@ -439,6 +441,10 @@ nav.addEventListener('click', function () {
   } else {
     about.classList.add("hidden");
   }
+});
+
+closeButton.addEventListener('click', function () {
+  about.classList.add("hidden");
 });
 
 /***/ }),

@@ -97,6 +97,8 @@ animate();
 
 let nav = document.getElementById("nav");
 let about = document.getElementById("about-modal");
+let root = document.getElementById("root");
+let closeButton = document.getElementById("close-button");
 console.log(nav);
 console.log(about);
 
@@ -107,4 +109,8 @@ nav.addEventListener('click', () => {
   } else {
     about.classList.add("hidden");
   }
+});
+
+closeButton.addEventListener('click', () => {
+  about.classList.add("hidden");
 });
