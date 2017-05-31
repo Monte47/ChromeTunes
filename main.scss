@@ -10,10 +10,19 @@
   position: absolute;
   font-family: 'Coiny';
   font-size: 20px;
-  top: 5px;
-  right: 5px;
+  top: 15px;
+  right: 15px;
   color: white;
   cursor: pointer;
+  text-shadow:
+   -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+}
+
+#nav:hover {
+  transform: scale(1.4);
 }
 
 #about-modal {
