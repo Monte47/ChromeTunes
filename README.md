@@ -1,80 +1,85 @@
-## ChromeTunes
+# [**ChromeTunes**](https://monte47.github.io/ChromeTunes/)
 
-### Background
+ChromeTunes is an interactive audio-visual app which lets you create music notes and colors with your keyboard. ChromeTunes is inspired by the concept of Synesthesia, specifically Chromesthesia.
 
-ChromeTunes is an interactive javascript app that lets you create sounds via your keyboard and generates color visualizations as you play. ChromeTunes is inspired by the concept of Synesthesia, specifically Chromesthesia.
+It was built using JavaScript, HTML5 Canvas, and CSS3.
 
-Synesthesia is a neurological phenomenon in which stimulation of one pathway associated with a sensory experience involuntarily triggers another sensory pathway. Chromesthesia is a specific type of Synesthesia in which hearing different sounds evokes experiences of color.
+## **Implementation and Functionality**
 
-### Functionality & MVP
+#### **Notes**
 
-Chrometunes will allow users to be able to:
+ChromeTunes generates sound programmatically using the JavaScript Web Audio API, which uses different waveform frequencies to change the tone of sound, and different wave shape types to produce different sound textures.
 
-- [ ] Interact with a virtual keyboard to create sounds and color visualizations
-- [ ] Select keys to play by pressing buttons on their keyboard.
-- [ ] Paint a portion of the background with a different color depending on which key is pressed.
-- [ ] Provide visual feedback on the keys when they are used.
-- [ ] Choose from at least a few different sets of sounds via a toggle menu.
+```Javascript
+sound(key){
+  var ctx = new (window.AudioContext || window.webkitAudioContext);
+  var o = ctx.createOscillator();
+  var g = ctx.createGain();
+  o.frequency.value = key;
+  o.type = this.soundType;
+  o.connect(g);
+  g.connect(ctx.destination);
+  o.start(0);
+  g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + .5);
+  setTimeout(() => ctx.close(), 500);
+}
+```
 
-Additionally, ChromeTunes will include:
+#### **Colors**
 
-- [ ] A clickable modal to describe the inspiration and backgound of chiptunes and synesthesia
-- [ ] A production README
+ChromeTunes uses HTML5 Canvas and Javascript logic to implement color animations. Color circles are each given velocities positions. Functional logic determines how colors interact with the edge of the window and the cursor.
 
-### Wireframes
+```Javascript
+move(){
+  if (this.xStart + this.radius > innerWidth || this.xStart - this.radius < 0) {
+    this.xVel = -this.xVel;
+  }
+  if (this.yStart + this.radius > innerHeight || this.yStart - this.radius < 0) {
+    this.yVel = -this.yVel;
+  }
+  this.xStart += this.xVel;
+  this.yStart += this.yVel;
+  this.draw();
 
-ChromeTunes will consist of a single screen with a keyboard, small nav above, and a default black background. The menu will contain a title, a toggle menu for different sets of sounds, a link to the github repo for the app.
+  if( cursor.yPos - this.yStart < this.maxRadius - 2 && cursor.yPos - this.yStart > -this.maxRadius - 2
+    && cursor.xPos - this.xStart < this.maxRadius - 2 && cursor.xPos - this.xStart > -this.maxRadius - 2) {
+    if (this.radius < this.maxRadius) {
+      this.radius += 1;
+    }
+  } else if (this.radius > this.minRadius){
+    this.radius -= 1;
+  }
+}
+```
 
-![](./images/Wireframe.png)
+#### **Settings**
 
-### Architecture and Technologies
+The app utilizes object oriented design to allow users to change sounds settings. Users can toggle through a series of scales and sound types to implement different sounds.
 
-This project will be completed using the following Technologies:
+```Javascript
+const keyHandler = (e) => {
+  let key = e.key;
+  let currentSound;
+  let currentScale;
+  console.log(key);
+  if(key === " ") {
+    scalesI++;
+    currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+    currentScale = scalesArray[scalesI % scalesArray.length];
+    keyBoard = new Keyboard(currentScale, colors, currentSound);
+  } else if (key === "Enter") {
+    soundTypeI++;
+    currentSound = soundTypeArray[soundTypeI % soundTypeArray.length];
+    currentScale = scalesArray[scalesI % scalesArray.length];
+    keyBoard = new Keyboard(currentScale, colors, currentSound);
+  } else if (keys.indexOf(key) > -1) {
+    keyBoard.sound(key);
+    createSoundCircle();
+    setTimeout(() => colorArray.splice(1500, 1), 5000);
+  }
+};
+```
 
-- Vanilla Javascript for logic to play sounds and generate colors
-- HTML with Canvas and CSS for DOM manipulation, rendering, and styling
-- Webpack to bundle together various scripts necessary for the app to run
+## **Future Plans for ChromeTunes**
 
-In addition to the webpack entry file, there will be three scripts associated with this app:
-
-`keyboard.js`: this script will contain all the logic for creating the keyboard and its elements, which will be rendered to the dom.
-
-`chrome_tunes.js`: this script will be the main entry file and will host all logic for creating the canvas, the listeners and corresponding functions.
-
-`color.js`: this script will handle the logic for generating a color on the background image when a key is pressed
-
-### Implementation Timeline
-
-**Day 1**: Setup all necessary Node modules and configure webpack. Create `webpack.config.js` and `package.json` files. Write a basic entry file. Understand sound creation on Javascript. Pick out colors for each note. Goals for the day include:
-
-- Complete webpack bundle
-- Find colors for each corresponding note
-- Research creating sound waves in Javascript
-- Determine which scales/notes to map to keyboard
-
-**Day 2**: This day will be dedicated to learning canvas, and using Canvas to generate animations. Additionally the sound functionality will be created so that keys will generate an appropriate sound. Goals for the day include:
-
-- Generate a canvas
-- Complete `sound.js` logic functionality
-- Map each key to its appropriate sound and key-value on the computer keyboard
-- Research Canvas functionality and animation
-
-**Day 3**: This day will be dedicated to implementing the colors feature of the app in which a brush of color will be animated across the background and disappear momentarily using Canvas. Goals for the day include:
-
-- Complete `color.js` logic functionality
-- Map each key to its appropriate color
-
-
-**Day 4**: This day will be dedicated to implementing the functionality and rendering of app navigation menu. Changing between different types of keyboard will be completed on this day as well as general styling and polish to the overall app. Goals for the day include:
-
-- Render navigation menu
-- Complete logic for switching between keyboard styles
-- Complete Production README
-
-### Bonus features
-
-Given enough additional time. Some added features could include:
-
-- [ ] Add Demo features that play simple songs
-- [ ] Recording and playback features
-- [ ] Layering of multiple recordings to create comprehensive music
+Future development plans for ChromeTunes include a Demo button that will play from a variety of quick songs depending which sound type/key is currently in use.
