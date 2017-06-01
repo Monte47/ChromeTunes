@@ -4,6 +4,8 @@ ChromeTunes is an interactive audio-visual app which lets you create music notes
 
 It was built using JavaScript, HTML5 Canvas, and CSS3.
 
+![](./docs/production_gif.gif)
+
 ## **Implementation and Functionality**
 
 #### **Notes**
