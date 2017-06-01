@@ -111,11 +111,11 @@ var c = canvas.getContext('2d');
 var colorArray = _color2.default;
 
 window.addEventListener('mousemove', function (e) {
-  mouse.x = e.x;
-  mouse.y = e.y;
+  cursor.xPos = e.x;
+  cursor.yPos = e.y;
 });
 
-var mouse = {
+var cursor = {
   x: undefined,
   y: undefined
 };
@@ -124,13 +124,13 @@ var Circle = function () {
   function Circle(x, y, dx, dy, radius, color) {
     _classCallCheck(this, Circle);
 
-    this.x = x;
-    this.y = y;
-    this.dx = dx;
-    this.dy = dy;
+    this.xStart = x;
+    this.yStart = y;
+    this.xVel = dx;
+    this.yVel = dy;
     this.radius = radius;
     this.minRadius = radius;
-    this.maxRadius = radius + 45;
+    this.maxRadius = radius + 55;
     this.color = color || colorArray[Math.floor(Math.random() * colorArray.length)];
   }
 
@@ -138,24 +138,24 @@ var Circle = function () {
     key: 'draw',
     value: function draw() {
       c.beginPath();
-      c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+      c.arc(this.xStart, this.yStart, this.radius, 0, Math.PI * 2, false);
       c.fillStyle = this.color;
       c.fill();
     }
   }, {
-    key: 'update',
-    value: function update() {
-      if (this.x + this.radius > innerWidth || this.x - this.radius < 0) {
-        this.dx = -this.dx;
+    key: 'move',
+    value: function move() {
+      if (this.xStart + this.radius > innerWidth || this.xStart - this.radius < 0) {
+        this.xVel = -this.xVel;
       }
-      if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
-        this.dy = -this.dy;
+      if (this.yStart + this.radius > innerHeight || this.yStart - this.radius < 0) {
+        this.yVel = -this.yVel;
       }
-      this.x += this.dx;
-      this.y += this.dy;
+      this.xStart += this.xVel;
+      this.yStart += this.yVel;
       this.draw();
 
-      if (mouse.x - this.x < this.maxRadius && mouse.x - this.x > -this.maxRadius && mouse.y - this.y < this.maxRadius && mouse.y - this.y > -this.maxRadius) {
+      if (cursor.xPos - this.xStart < this.maxRadius - 2 && cursor.xPos - this.xStart > -this.maxRadius - 2 && cursor.yPos - this.yStart < this.maxRadius - 2 && cursor.yPos - this.yStart > -this.maxRadius - 2) {
         if (this.radius < this.maxRadius) {
           this.radius += 1;
         }
@@ -366,8 +366,8 @@ var Keyboard = function () {
       c.font = "60px Coiny";
       c.fillStyle = this.currentColor;
       c.textAlign = "center";
-      c.strokeText("Press a Key to Make a Sound", canvas.width / 2, canvas.height / 2);
-      c.fillText("Press a Key to Make a Sound", canvas.width / 2, canvas.height / 2);
+      c.strokeText("Press a Letter Key to Make a Sound", canvas.width / 2, canvas.height / 2);
+      c.fillText("Press a Letter Key to Make a Sound", canvas.width / 2, canvas.height / 2);
       c.font = "30px Coiny";
       c.strokeText("Press Enter to Change Sound Type", canvas.width / 2, canvas.height / 1.25);
       c.fillText("Press Enter to Change Sound Type", canvas.width / 2, canvas.height / 1.25);
@@ -505,7 +505,7 @@ var animate = function animate() {
   c.clearRect(0, 0, innerWidth, innerHeight);
 
   for (var j = 0; j < circleArray.length; j++) {
-    circleArray[j].update();
+    circleArray[j].move();
   }
   keyBoard.draw();
 };

@@ -79,7 +79,7 @@ const animate = () => {
   c.clearRect(0, 0, innerWidth, innerHeight);
 
   for (var j = 0; j < circleArray.length; j++) {
-    circleArray[j].update();
+    circleArray[j].move();
   }
   keyBoard.draw();
 

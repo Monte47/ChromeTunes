@@ -2,7 +2,7 @@
 
 ### Background
 
-ChromeTunes is an interactive javascript app that lets you create sounds via your keyboard and mouse and generates color visualizations as you play. ChromeTunes is inspired by the concept of Synesthesia, specifically Chromesthesia.
+ChromeTunes is an interactive javascript app that lets you create sounds via your keyboard and generates color visualizations as you play. ChromeTunes is inspired by the concept of Synesthesia, specifically Chromesthesia.
 
 Synesthesia is a neurological phenomenon in which stimulation of one pathway associated with a sensory experience involuntarily triggers another sensory pathway. Chromesthesia is a specific type of Synesthesia in which hearing different sounds evokes experiences of color.
 

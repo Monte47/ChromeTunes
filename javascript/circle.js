@@ -10,47 +10,47 @@ const c = canvas.getContext('2d');
 const colorArray = colors;
 
 window.addEventListener('mousemove', (e) => {
-  mouse.x = e.x;
-  mouse.y = e.y;
+  cursor.xPos = e.x;
+  cursor.yPos = e.y;
 });
 
-let mouse = {
+let cursor = {
   x: undefined,
   y: undefined
 };
 
 class Circle {
   constructor(x, y, dx, dy, radius, color){
-    this.x = x;
-    this.y = y;
-    this.dx = dx;
-    this.dy = dy;
+    this.xStart = x;
+    this.yStart = y;
+    this.xVel = dx;
+    this.yVel = dy;
     this.radius = radius;
     this.minRadius = radius;
-    this.maxRadius = radius + 45;
+    this.maxRadius = radius + 55;
     this.color = color || colorArray[Math.floor(Math.random() * colorArray.length)];
   }
 
   draw() {
     c.beginPath();
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    c.arc(this.xStart, this.yStart, this.radius, 0, Math.PI * 2, false);
     c.fillStyle = this.color;
     c.fill();
   }
 
-  update(){
-    if (this.x + this.radius > innerWidth || this.x - this.radius < 0) {
-      this.dx = -this.dx;
+  move(){
+    if (this.xStart + this.radius > innerWidth || this.xStart - this.radius < 0) {
+      this.xVel = -this.xVel;
     }
-    if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
-      this.dy = -this.dy;
+    if (this.yStart + this.radius > innerHeight || this.yStart - this.radius < 0) {
+      this.yVel = -this.yVel;
     }
-    this.x += this.dx;
-    this.y += this.dy;
+    this.xStart += this.xVel;
+    this.yStart += this.yVel;
     this.draw();
 
-    if(mouse.x - this.x < this.maxRadius && mouse.x - this.x > -this.maxRadius
-     && mouse.y - this.y < this.maxRadius && mouse.y - this.y > -this.maxRadius) {
+    if(cursor.xPos - this.xStart < this.maxRadius - 2 && cursor.xPos - this.xStart > -this.maxRadius - 2
+     && cursor.yPos - this.yStart < this.maxRadius - 2 && cursor.yPos - this.yStart > -this.maxRadius - 2) {
       if (this.radius < this.maxRadius) {
         this.radius += 1;
       }

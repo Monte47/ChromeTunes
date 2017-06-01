@@ -172,8 +172,8 @@ class Keyboard {
     c.font = "60px Coiny";
     c.fillStyle = this.currentColor;
     c.textAlign = "center";
-    c.strokeText("Press a Key to Make a Sound", canvas.width/2, canvas.height/2);
-    c.fillText("Press a Key to Make a Sound", canvas.width/2, canvas.height/2);
+    c.strokeText("Press a Letter Key to Make a Sound", canvas.width/2, canvas.height/2);
+    c.fillText("Press a Letter Key to Make a Sound", canvas.width/2, canvas.height/2);
     c.font = "30px Coiny";
     c.strokeText("Press Enter to Change Sound Type", canvas.width/2, canvas.height/1.25);
     c.fillText("Press Enter to Change Sound Type", canvas.width/2, canvas.height/1.25);
